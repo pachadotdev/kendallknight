@@ -1,0 +1,193 @@
+---
+title: "Kendallknight: Efficient Implementation of Kendall's Correlation
+  Coefficient Computation"
+author: 'Mauricio Vargas Sepúlveda'
+email: m.sepulveda@mail.utoronto.ca
+orcid: 'ORCID 0000-0003-1017-7574'
+date: 2024-08-16
+university: 'University of Toronto'
+department: 'Department of Political Science and Munk School of Global Affairs
+  and Public Policy'
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    template: "template.tex"
+    keep_tex: true
+bibliography: ../inst/references.bib
+csl: chicago.csl
+fontsize: 12pt
+linespacing: 1.5
+margin: 1
+paper: letterpaper
+customfonts: true
+sansserif: false
+amsthm: false
+outline: true
+---
+
+# Introduction
+
+Kendall's correlation coefficient is a non-parametric measure of association
+between two variables and it is particularly useful to compute pseudo-$R$2$
+statistics in the context of Poisson regression with fixed effects
+[@santos2006]. The current Kendall's correlation coefficient implementation in
+R has a computational complexity of $O(n^2)$, which can be slow for large
+datasets [@rstats]. We used C++ in the `kendallknight` package to compute the
+same with a computational complexity $O(n \log(n))$ following @knight1966,
+@abrevaya1999, @christensen2005 and @emara2024. For a dataset with 20,000
+observations, a computational complexity $O(n^2)$ involves 400 million
+operations and a computational complexity $O(n \log(n))$ requires approximately
+198,000 operations to obtain the Kendall's correlation coefficient, meaning that
+our implementation can reduce computation time by several minutes or hours for
+large datasets without sacrificing precision or correct handling of corner
+cases.
+
+# Definitions
+
+Kendall's correlation coefficient is a pairwise measure of association and it
+does not require the data to be normally distributed. For two vectors $x$ and
+$y$ of length $n$, it is defined as [@knight1966]:
+
+\begin{equation*}
+r(x,y) = \frac{c - d}{\sqrt{(c + d + e)(c + d + f)}},
+\end{equation*}
+
+where $c$ is the number of concordant pairs, $d$ is the number of discordant
+pairs, $e$ is the number of ties in $x$ and $f$ is the number of ties in $y$.
+
+The corresponding definitions for $c$, $d$, $e$ and $f$ are:
+
+\begin{eqnarray*}
+c &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_1(x_i, x_j, y_i, y_j), \\
+d &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_2(x_i, x_j, y_i, y_j]), \\ 
+e &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_3(x_i, x_j) g_4(y_i, y_j), \\
+f &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_4(x_i, x_j) g_3(y_j, y_i).
+\end{eqnarray*}
+
+The functions $g_1$, $g_2$, $g_3$ and $g_4$ are indicators defined as:
+
+\begin{eqnarray*}
+g_1(x_i, x_j, y_i, y_j) &=& \begin{cases}
+  1 & \text{if } (x_i - x_j)(y_i - y_j) > 0, \\
+  0 & \text{otherwise},
+\end{cases} \\
+g_2(x_i, x_j, y_i, y_j) &=& \begin{cases}
+  1 & \text{if } (x_i - x_j)(y_i - y_j) < 0, \\
+  0 & \text{otherwise},
+\end{cases} \\
+g_3(x_i, x_j) &=& \begin{cases}
+  1 & \text{if } x_i = x_j \text{ and } y_i \neq y_j, \\
+  0 & \text{otherwise},
+\end{cases} \\
+g_4(y_i, y_j) &=& \begin{cases}
+  1 & \text{if } x_i \neq x_j \text{ and } y_i = y_j, \\
+  0 & \text{otherwise}.
+\end{cases}
+\end{eqnarray*}
+
+Kendall's correlation correlation is a measure of the proportion of concordant
+pairs minus the proportion of discordant pairs corrected by the proportion of
+ties in the data, and it requires to compare $m = n(n - 1) / 2$ pairs of
+observations which is why its computational complexity is $O(n^2)$.
+
+Without ties, or duplicates in the data, the Kendall's correlation coefficient
+simplifies to:
+
+\begin{equation*}
+r(x,y) = \frac{c - d}{c + d} = 
+ \frac{c - d}{m} =
+ % \frac{2(c - d)}{n(n - 1)} = 
+ % \frac{2c}{n(n - 1)} - \frac{2d}{n(n - 1)} =
+ % \frac{2c}{n(n - 1)} - \frac{2(m - c)}{n(n - 1)} =
+ % \frac{4c}{n(n - 1)} - \frac{2m}{n(n - 1)} =
+ % \frac{4c}{n(n - 1)} - \frac{2m}{2m} =
+ \frac{4c}{n(n - 1)} - 1
+\end{equation*}
+
+A naive implementation consisting in comparing all pairs of observations would
+require $O(n^2)$ operations. However, the Kendall's correlation coefficient can
+be computed more efficiently by sorting the data and using the number of
+inversions in the data to compute the correlation in $O(n \log(n))$ operations
+by using binary trees [@knight1966].
+
+An array that represents a binary tree has a search operation with a
+computational complexity of $O(\log(n))$ and an insertion operation with a
+computational complexity of $O(n)$ [@abrevaya1999; @christensen2005]. The
+resulting computational complexity of the search and insert operations in an
+array is $O(n)$ [@emara2024]. Repeating thhe search and insert operation for
+each element in the array results in a computational complexity of $O(n^2)$,
+resulting in the same computational complexity as the naive implementation.
+
+# Implementation
+
+Using a merge sort with a binary tree with a depth $1 + \log_2(n)$ results in
+a search and insert operation with a computational complexity of $O(\log(n))$,
+resulting in a computational complexity of $O(n \log(n))$ for the Kendall's
+correlation coefficient [@knight1966; @emara2024].
+
+An algorithm that conducts the following operations can compute the Kendall's
+correlation coefficient in an efficient way, with computational complexity of
+$O(n \log(n))$ instead of $O(n^2)$, as follows:
+
+1. Sort the vector $x$ and keep track of the original indices in a permutation
+   vector.
+2. Rearrange the vector $y$ according to $x$.
+3. Compute the total pairs $m$.
+4. Compute the pairs of ties in $x$ as $m_x = t_x (t_x + 1) / 2$.
+5. Compute the pairs of ties in $y$ as $m_y = t_y (t_y + 1) / 2$.
+6. Compute the concordant pairs adjusted by the number of swaps in $y$ by using
+   a merge sort as $t = m - t_x - t_y + 2t_p$.
+7. Compute the Kendall's correlation  coefficient as
+   $r(x,y) = t / (\sqrt{m - m_x} \sqrt{m - m_y})$.
+   
+The `kendallknight` package implements these steps in C++ and exports the
+Kendall's correlation coeeficient as a function that can be used in R by using
+the `cpp11` headers [@cpp11]. Unlike existing implementations with
+$O(n \log(n))$ complexity, such as @pcapp, this implementation also provides
+dedicated functions to test the statistical significance of the computed
+correlation, and for which it uses the Gamma function that R already implemented
+in C [@rstats].
+
+# Benchmarks
+
+We tested the `kendallknight` package against the base R implementation of the
+Kendall correlation using the `cor` function with `method = "kendall"` for
+randomly generated vectors of different lengths. The results are shown in the
+following table:
+
+| implementation  | number of observations | median time | memory allocation |
+|-----------------|------------------------|-------------|-------------------|
+| kendallknight   | 100                    |  37 us      |  52 KB            |
+| base R          | 100                    | 265 ms      | 129 KB            |
+| kendallknight   | 1,000                  | 173 us      |  67 KB            |
+| base R          | 1,000                  |  22 ms      |  75 KB            |
+| kendallknight   | 10,000                 |   2 ms      | 665 KB            |
+| base R          | 10,000                 |   2 s       | 743 KB            |
+| kendallknight   | 100,000                |  22 ms      |   6 MB            |
+| base R          | 100,000                |   4 m       |   7 MB            |
+
+In order to avoid distorted results, we used the `bench` package to run the
+benchmarking tests in a clean R session and in the Niagara supercomputer
+cluster that, unlike personal computers, will not distort the test results due
+to other processes running in the background (e.g., such as automatic updates).
+
+# Testing
+
+The package uses `testthat` for testing [@wickham2011]. The included tests are
+exhaustive and covered the complete code to check for correctness comparing with
+the base R implementation, and also checking corner cases and forcing errors
+by passing unusable input data to the user-visible functions.
+
+# Conclusion
+
+The `kendallknight` package provides a fast and memory-efficient implementation
+of the Kendall's correlation coefficient with a computational complexity of
+$O(n \log(n))$, which is orders of magnitude faster than the base R
+implementation without sacrificing precision or correct handling of corner
+cases. For small vectors (e.g., less than 100 observations), the time difference
+is negligible. However, for larger vectors, the difference can be substantial.
+This package is particularly useful to solve bottlenecks in the context of
+econometrics and international trade, but it can also be used in other fields
+where the Kendall's correlation coefficient is required.
+
+# References

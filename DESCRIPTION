@@ -1,0 +1,40 @@
+Package: kendallknight
+Type: Package
+Title: Efficient Implementation of Kendall's Correlation Coefficient Computation
+Version: 0.1.0
+Authors@R: c(
+    person(
+        given = "Mauricio",
+        family = "Vargas Sepulveda",
+        role = c("aut", "cre"),
+        email = "m.sepulveda@mail.utoronto.ca",
+        comment = c(ORCID = "0000-0003-1017-7574"))
+    )
+Imports:
+    stats
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    tidyr
+Depends: R(>= 3.5.0)
+Description: The computational complexity of the implemented algorithm is
+    \eqn{O(n \log(n))}{O(n log(n))}, which is faster than the base R
+    implementation in \code{\link[stats]{cor}} with \code{method = "kendall"}
+    that has a computational complexity of \eqn{O(n^2)}{O(n^2)}. For small
+    vectors (i.e., less than 100 observations), the time difference is
+    negligible. However, for larger vectors, the difference can be substantial.
+    The references are Knight (1966) <doi:10.2307/2282833>, Abrevaya (1999)
+    <doi:10.1016/S0165-1765(98)00255-9>, Christensen (2005) and Emara (2024)
+    <https://learningcpp.org/>.
+    <doi:10.1007/BF02736122>.
+License: Apache License (>= 2)
+BugReports: https://github.com/pachadotdev/capybara/issues
+URL: https://pacha.dev/capybara/, https://github.com/pachadotdev/capybara
+RoxygenNote: 7.3.1
+Encoding: UTF-8
+NeedsCompilation: yes
+LinkingTo: cpp11
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)

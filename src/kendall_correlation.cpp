@@ -6,10 +6,10 @@
 // note: the len < 2 conditions are commented out because the R function checks
 // for this condition before calling the C++ functions
 
+#include "Rmath.h"
 #include <cpp11.hpp>
 #include <numeric>
 #include <vector>
-#include "Rmath.h"
 
 using namespace cpp11;
 

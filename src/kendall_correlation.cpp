@@ -11,6 +11,10 @@
 #include <numeric>
 #include <vector>
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 using namespace cpp11;
 
 uint64_t insertion_sort_(double *arr, size_t len) {
@@ -103,6 +107,9 @@ uint64_t merge_sort_(double *x, double *buf, size_t len) {
   std::iota(perm.begin(), perm.end(), 0);
   std::sort(perm.begin(), perm.end(),
             [&](size_t i, size_t j) { return m(i, 0) < m(j, 0); });
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
   for (size_t i = 0; i < len; i++) {
     arr1[i] = m(perm[i], 0);
     arr2[i] = m(perm[i], 1);
@@ -155,10 +162,13 @@ double ckendall_(int k, int n, std::vector<std::vector<double>> &w) {
     return 0;
   }
   if (w[n][k] < 0) {
-    if (n == 1)
+    if (n == 1) {
       w[n][k] = (k == 0) ? 1 : 0;
-    else {
+    } else {
       double s = 0;
+#ifdef _OPENMP
+#pragma omp parallel for reduction(+ : s)
+#endif
       for (int i = 0; i <= u; i++) {
         s += ckendall_(k - i, n - 1, w);
       }
@@ -174,13 +184,16 @@ double ckendall_(int k, int n, std::vector<std::vector<double>> &w) {
   std::vector<std::vector<double>> w(
       n + 1, std::vector<double>((n * (n - 1) / 2) + 1, -1));
 
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
   for (int i = 0; i < len; i++) {
     double q = std::floor(Q[i] + 1e-7);
-    if (q < 0)
+    if (q < 0) {
       P[i] = 0;
-    else if (q > n * (n - 1) / 2)
+    } else if (q > n * (n - 1) / 2) {
       P[i] = 1;
-    else {
+    } else {
       double p = 0;
       for (int j = 0; j <= q; j++) {
         p += ckendall_(j, n, w);

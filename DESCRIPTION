@@ -1,7 +1,7 @@
 Package: kendallknight
 Type: Package
 Title: Efficient Implementation of Kendall's Correlation Coefficient Computation
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person(
         given = "Mauricio",

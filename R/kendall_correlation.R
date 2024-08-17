@@ -177,13 +177,23 @@ kendall_check_ <- function(x,y) {
     stop("x and y must be numeric")
   }
 
+  # replace -Inf/Inf with big number to mimic R's behavior on C++ side
+  xinf <- is.infinite(x)
+  yinf <- is.infinite(y)
+  cppinf <- 10^7 - 1
+  x[xinf & x < 0] <- -cppinf
+  x[xinf & x > 0] <- cppinf
+  y[yinf & y < 0] <- -cppinf
+  y[yinf & y > 0] <- cppinf
+
   arr <- cbind(x, y)
   
   if (storage.mode(arr) != "double") {
     storage.mode(arr) <- "double"
   }
 
-  arr <- arr[is.finite(arr[, 1]) & is.finite(arr[, 2]), ]
+  # arr <- arr[is.finite(arr[, 1]) & is.finite(arr[, 2]), ]
+  arr <- arr[complete.cases(arr), ]
   
   n <- nrow(arr)
   

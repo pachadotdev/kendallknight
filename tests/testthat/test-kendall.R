@@ -115,14 +115,12 @@ test_that("less than 2 usable observations gives an error", {
   x <- 1:3
   y <- c(1, NaN, NA)
   expect_error(kendall_cor(x, y), "non-null")
+})
 
+test_that("correct handling of Inf", {
   x <- 1:3
   y <- c(1, -Inf, NA)
-  expect_error(kendall_cor(x, y), "non-null")
-
-  x <- 1:3
-  y <- c(1, NA, Inf)
-  expect_error(kendall_cor(x, y), "non-null")
+  expect_equal(kendall_cor(x, y), cor(x, y, method = "kendall", use = "pairwise.complete.obs"))
 })
 
 test_that("constant vectors give a warning", {
@@ -134,13 +132,35 @@ test_that("constant vectors give a warning", {
   expect_warning(kendall_cor_test(y, x), "zero variance")
 })
 
-test_that("adding random NAs gives the same result as base R", {
+test_that("adding random Inf/NaN/NAs gives the same result as base R", {
   set.seed(123)
   x <- rnorm(100)
   y <- rpois(100, 2)
   x[sample(1:100, 5)] <- NA
   y[sample(1:100, 5)] <- NA
   expect_equal(kendall_cor(x, y), cor(x, y, method = "kendall", use = "pairwise.complete.obs"))
+
+  set.seed(321)
+  x <- rnorm(100)
+  y <- rpois(100, 2)
+  x[sample(1:100, 5)] <- NaN
+  y[sample(1:100, 5)] <- NaN
+  expect_equal(kendall_cor(x, y), cor(x, y, method = "kendall", use = "pairwise.complete.obs"))
+
+  set.seed(321)
+  x <- rnorm(100)
+  y <- rpois(100, 2)
+  x[sample(1:100, 5)] <- -1 * x[sample(1:100, 5)]
+  y[sample(1:100, 5)] <- -1 * y[sample(1:100, 5)]
+  x[sample(1:100, 5)] <- Inf
+  x[sample(1:100, 5)] <- -Inf
+  y[sample(1:100, 5)] <- Inf
+  y[sample(1:100, 5)] <- -Inf
+  expect_lt(
+    round(kendall_cor(x, y), 2) -
+      round(cor(x, y, method = "kendall", use = "pairwise.complete.obs"), 2),
+    0.01
+  )
 })
 
 

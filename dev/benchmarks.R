@@ -5,9 +5,9 @@ library(kendallknight)
 
 set.seed(200100)
 
-n <- 10^(2:5)
+n <- seq(1,10,1) * 10^(4)
 
-out <- map_df(
+map(
   n,
   function(n) {
     x <- rnorm(n)
@@ -16,17 +16,21 @@ out <- map_df(
     res <- bench::mark(
       kendall_cor(x, y),
       cor(x, y, method = "kendall"),
-      iterations = 5
+      iterations = 3
     )
 
     res %>%
       select(expression, median, mem_alloc) %>%
-      mutate(nobs = length(x))
+      mutate(nobs = length(x)) %>%
+      saveRDS(paste0("dev/benchmarks_", n, ".rds"))
   }
 )
 
-saveRDS(out, "dev/benchmarks.rds")
+finp <- list.files("dev", pattern = "benchmarks_", full.names = TRUE)
 
-out <- readRDS("dev/benchmarks.rds")
+dout <- map_df(
+  finp,
+  ~ readRDS(.x)
+)
 
-out
+saveRDS(dout, "dev/benchmarks_all.rds")

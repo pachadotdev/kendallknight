@@ -14,33 +14,11 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 
 ## About
 
-tldr; If you have a 2-4GB dataset and you need to estimate a
-(generalized) linear model with a large number of fixed effects, this
-package is for you. It works with larger datasets as well and facilites
-computing clustered standard errors.
-
-‘kendallknight’ is a fast and small footprint software that provides
-efficient functions for demeaning variables before conducting a GLM
-estimation. This technique is particularly useful when estimating linear
-models with multiple group fixed effects. It is a fork of the excellent
-Alpaca package created and maintained by [Dr. Amrei
-Stammann](https://github.com/amrei-stammann). The software can estimate
-Exponential Family models (e.g., Poisson) and Negative Binomial models.
-
-Traditional QR estimation can be unfeasible due to additional memory
-requirements. The method, which is based on Halperin (1962) vector
-projections offers important time and memory savings without
-compromising numerical stability in the estimation process.
-
-The software heavily borrows from Gaure (2013) and Stammann (2018) works
-on OLS and GLM estimation with large fixed effects implemented in the
-‘lfe’ and ‘alpaca’ packages. The differences are that ‘kendallknight’
-does not use C nor Rcpp code, instead it uses cpp11 and
-[cpp11armadillo](https://github.com/pachadotdev/cpp11armadillo).
-
-The summary tables borrow from Stata outputs. I have also provided
-integrations with ‘broom’ to facilitate the inclusion of statistical
-tables in Quarto/Jupyter notebooks.
+tldr; If you have a large dataset, this package implements a different
+algorithm from the one implemented in base R, and it reduces the
+complexity of the Kendall’s correlation coefficient from O(n^2) to O(n
+log n). This package is written in C++ and uses cpp11 to export the
+functions to R. See the vignette for the mathematical details.
 
 If this software is useful to you, please consider donating on [Buy Me A
 Coffee](https://buymeacoffee.com/pacha). All donations will be used to
@@ -62,8 +40,8 @@ See the documentation: <https://pacha.dev/kendallknight>.
 
 We tested the `kendallknight` package against the base R implementation
 of the Kendall correlation using the `cor` function with `method =
-"kendall"` for vectors of different lengths. The results are shown in
-the following table:
+"kendall"` for randomly generated vectors of different lengths. The
+results are shown in the following table:
 
 | implementation | number of observations | median time | memory allocation |
 | -------------- | ---------------------- | ----------- | ----------------- |
@@ -81,6 +59,14 @@ the benchmarking tests in a clean R session and in the Niagara
 supercomputer cluster that, unlike personal computers, will not distort
 the test results due to other processes running in the background (e.g.,
 such as automatic updates).
+
+# Testing
+
+The package uses `testthat` for testing \[@wickham2011\]. The included
+tests are exhaustive and covered the complete code to check for
+correctness comparing with the base R implementation, checking corner
+cases, and forcing errors by passing unusable input data to the
+user-visible functions.
 
 ## Code of Conduct
 

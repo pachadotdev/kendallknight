@@ -98,12 +98,12 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Kendall correlation is a non-parametric measure of association between two variables and it is particularly useful to compute pseudo-$R<span class="math inline">\(2\)</span> statistics in the context of Poisson regression with fixed effects <span class="citation">(Silva and Tenreyro 2006)</span>. The current Kendall correlation implementation in R has a computational complexity of <span class="math inline">\(O(n^2)\)</span>, which can be slow for large datasets <span class="citation">(R Core Team 2024)</span>. We used C++ in the <code>kendallknight</code> package to compute the same with a computational complexity <span class="math inline">\(O(n \log(n))\)</span> following <span class="citation">Knight (1966)</span>, <span class="citation">Abrevaya (1999)</span>, <span class="citation">Christensen (2005)</span> and <span class="citation">Emara (2024)</span>. For a dataset with 20,000 observations, a computational complexity <span class="math inline">\(O(n^2)\)</span> involves 400 million operations and a computational complexity <span class="math inline">\(O(n \log(n))\)</span> requires approximately 198,000 operations to obtain the Kendall correlation, meaning that our implementation can reduce computation time by several minutes or hours for large datasets without sacrificing precision or correct handling of corner cases.</p>
+<p>Kendall’s correlation coefficient is a non-parametric measure of association between two variables and it is particularly useful to compute pseudo-$R<span class="math inline">\(2\)</span> statistics in the context of Poisson regression with fixed effects <span class="citation">(Silva and Tenreyro 2006)</span>. The current Kendall’s correlation coefficient implementation in R has a computational complexity of <span class="math inline">\(O(n^2)\)</span>, which can be slow for large datasets <span class="citation">(R Core Team 2024)</span>. We used C++ in the <code>kendallknight</code> package to compute the same with a computational complexity <span class="math inline">\(O(n \log(n))\)</span> following <span class="citation">Knight (1966)</span>, <span class="citation">Abrevaya (1999)</span>, <span class="citation">Christensen (2005)</span> and <span class="citation">Emara (2024)</span>. For a dataset with 20,000 observations, a computational complexity <span class="math inline">\(O(n^2)\)</span> involves 400 million operations and a computational complexity <span class="math inline">\(O(n \log(n))\)</span> requires approximately 198,000 operations to obtain the Kendall’s correlation coefficient, meaning that our implementation can reduce computation time by several minutes or hours for large datasets without sacrificing precision or correct handling of corner cases.</p>
 </div>
 <div class="section level2">
 <h2 id="definitions">Definitions<a class="anchor" aria-label="anchor" href="#definitions"></a>
 </h2>
-<p>Kendall correlation is a pairwise measure of association and it does not require the data to be normally distributed. For two vectors <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> of length <span class="math inline">\(n\)</span>, it is defined as <span class="citation">(Knight 1966)</span>:</p>
+<p>Kendall’s correlation coefficient is a pairwise measure of association and it does not require the data to be normally distributed. For two vectors <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> of length <span class="math inline">\(n\)</span>, it is defined as <span class="citation">(Knight 1966)</span>:</p>
 <p><span class="math display">\[\begin{equation}
 r(x,y) = \frac{c - d}{\sqrt{(c + d + e)(c + d + f)}},
 \end{equation}\]</span></p>
@@ -134,8 +134,8 @@ g_4(y_i, y_j) = \begin{cases}
   0 &amp; \text{otherwise}.
 \end{cases}
 \end{eqnarray}\]</span></p>
-<p>The Kendall correlation is a measure of the proportion of concordant pairs minus the proportion of discordant pairs corrected by the proportion of ties in the data, and it requires to compare <span class="math inline">\(m = n(n - 1) / 2\)</span> pairs of observations which is why its computational complexity is <span class="math inline">\(O(n^2)\)</span>.</p>
-<p>Without ties, or duplicates in the data, the Kendall correlation simplifies to:</p>
+<p>Kendall’s correlation correlation is a measure of the proportion of concordant pairs minus the proportion of discordant pairs corrected by the proportion of ties in the data, and it requires to compare <span class="math inline">\(m = n(n - 1) / 2\)</span> pairs of observations which is why its computational complexity is <span class="math inline">\(O(n^2)\)</span>.</p>
+<p>Without ties, or duplicates in the data, the Kendall’s correlation coefficient simplifies to:</p>
 <p><span class="math display">\[\begin{equation}
 r(x,y) = \frac{c - d}{c + d} = 
  \frac{c - d}{m} =
@@ -146,14 +146,14 @@ r(x,y) = \frac{c - d}{c + d} =
  % \frac{4c}{n(n - 1)} - \frac{2m}{2m} =
  \frac{4c}{n(n - 1)} - 1
 \end{equation}\]</span></p>
-<p>A naive implementation consisting in comparing all pairs of observations would require <span class="math inline">\(O(n^2)\)</span> operations. However, the Kendall correlation can be computed more efficiently by sorting the data and using the number of inversions in the data to compute the correlation in <span class="math inline">\(O(n \log(n))\)</span> operations by using binary trees <span class="citation">(Knight 1966)</span>.</p>
+<p>A naive implementation consisting in comparing all pairs of observations would require <span class="math inline">\(O(n^2)\)</span> operations. However, the Kendall’s correlation coefficient can be computed more efficiently by sorting the data and using the number of inversions in the data to compute the correlation in <span class="math inline">\(O(n \log(n))\)</span> operations by using binary trees <span class="citation">(Knight 1966)</span>.</p>
 <p>An array that represents a binary tree has a search operation with a computational complexity of <span class="math inline">\(O(\log(n))\)</span> and an insertion operation with a computational complexity of <span class="math inline">\(O(n)\)</span> <span class="citation">(Abrevaya 1999; Christensen 2005)</span>. The resulting computational complexity of the search and insert operations in an array is <span class="math inline">\(O(n)\)</span> <span class="citation">(Emara 2024)</span>. Repeating thhe search and insert operation for each element in the array results in a computational complexity of <span class="math inline">\(O(n^2)\)</span>, resulting in the same computational complexity as the naive implementation.</p>
 </div>
 <div class="section level2">
 <h2 id="implementation">Implementation<a class="anchor" aria-label="anchor" href="#implementation"></a>
 </h2>
-<p>Using a merge sort with a binary tree with a depth <span class="math inline">\(1 + \log_2(n)\)</span> results in a search and insert operation with a computational complexity of <span class="math inline">\(O(\log(n))\)</span>, resulting in a computational complexity of <span class="math inline">\(O(n \log(n))\)</span> for the Kendall correlation <span class="citation">(Knight 1966; Emara 2024)</span>.</p>
-<p>An algorithm that conducts the following operations can compute the Kendall correlation in an efficient way, with computational complexity of <span class="math inline">\(O(n \log(n))\)</span> instead of <span class="math inline">\(O(n^2)\)</span>, as follows:</p>
+<p>Using a merge sort with a binary tree with a depth <span class="math inline">\(1 + \log_2(n)\)</span> results in a search and insert operation with a computational complexity of <span class="math inline">\(O(\log(n))\)</span>, resulting in a computational complexity of <span class="math inline">\(O(n \log(n))\)</span> for the Kendall’s correlation coefficient <span class="citation">(Knight 1966; Emara 2024)</span>.</p>
+<p>An algorithm that conducts the following operations can compute the Kendall’s correlation coefficient in an efficient way, with computational complexity of <span class="math inline">\(O(n \log(n))\)</span> instead of <span class="math inline">\(O(n^2)\)</span>, as follows:</p>
 <ol style="list-style-type: decimal">
 <li>Sort the vector <span class="math inline">\(x\)</span> and keep track of the original indices in a permutation vector.</li>
 <li>Rearrange the vector <span class="math inline">\(y\)</span> according to <span class="math inline">\(x\)</span>.</li>
@@ -161,14 +161,9 @@ r(x,y) = \frac{c - d}{c + d} =
 <li>Compute the pairs of ties in <span class="math inline">\(x\)</span> as <span class="math inline">\(m_x = t_x (t_x + 1) / 2\)</span>.</li>
 <li>Compute the pairs of ties in <span class="math inline">\(y\)</span> as <span class="math inline">\(m_y = t_y (t_y + 1) / 2\)</span>.</li>
 <li>Compute the concordant pairs adjusted by the number of swaps in <span class="math inline">\(y\)</span> by using a merge sort as <span class="math inline">\(t = m - t_x - t_y + 2t_p\)</span>.</li>
-<li>Compute the Kendall correlation as <span class="math inline">\(r(x,y) = t / (\sqrt{m - m_x} \sqrt{m - m_y})\)</span>.</li>
+<li>Compute the Kendall’s correlation coefficient as <span class="math inline">\(r(x,y) = t / (\sqrt{m - m_x} \sqrt{m - m_y})\)</span>.</li>
 </ol>
-<p>The <code>kendallknight</code> package implements these steps in C++ and exports the Kendall correlation as a function that can be used in R by using the <code>cpp11</code> headers <span class="citation">(Vaughan, Hester, and François 2023)</span>. Unlike existing implementations with <span class="math inline">\(O(n \log(n))\)</span> complexity, such as <span class="citation">Filzmoser, Fritz, and Kalcher (2023)</span>, this implementation also provides dedicated functions to test the statistical significance of the computed correlation, and for which it uses the Gamma function that R already implemented in C <span class="citation">(R Core Team 2024)</span>.</p>
-</div>
-<div class="section level2">
-<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
-</h2>
-<p>The <code>kendallknight</code> package provides a fast and memory-efficient implementation of the Kendall correlation with a computational complexity of <span class="math inline">\(O(n \log(n))\)</span>, which is orders of magnitude faster than the base R implementation without sacrificing precision or correct handling of corner cases. For small vectors (e.g., less than 100 observations), the time difference is negligible. However, for larger vectors, the difference can be substantial. This package is particularly useful to solve bottlenecks in the context of econometrics and international trade, but it can also be used in other fields where the Kendall correlation is required.</p>
+<p>The <code>kendallknight</code> package implements these steps in C++ and exports the Kendall’s correlation coeeficient as a function that can be used in R by using the <code>cpp11</code> headers <span class="citation">(Vaughan, Hester, and François 2023)</span>. Unlike existing implementations with <span class="math inline">\(O(n \log(n))\)</span> complexity, such as <span class="citation">Filzmoser, Fritz, and Kalcher (2023)</span>, this implementation also provides dedicated functions to test the statistical significance of the computed correlation, and for which it uses the Gamma function that R already implemented in C <span class="citation">(R Core Team 2024)</span>.</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -178,7 +173,7 @@ r(x,y) = \frac{c - d}{c + d} =
 <p>Abrevaya, Jason. 1999. “Computation of the Maximum Rank Correlation Estimator.” <em>Economics Letters</em> 62 (3): 279–85. <a href="https://doi.org/10.1016/S0165-1765(98)00255-9" class="external-link">https://doi.org/10.1016/S0165-1765(98)00255-9</a>.</p>
 </div>
 <div id="ref-christensen2005">
-<p>Christensen, David. 2005. “Fast Algorithms for the Calculation of Kendall’s τ.” <em>Computational Statistics</em> 20 (1): 51–62. <a href="https://doi.org/10.1007/BF02736122" class="external-link">https://doi.org/10.1007/BF02736122</a>.</p>
+<p>Christensen, David. 2005. “Fast Algorithms for the Calculation of Kendall’s <span class="math inline">\(\tau\)</span>.” <em>Computational Statistics</em> 20 (1): 51–62. <a href="https://doi.org/10.1007/BF02736122" class="external-link">https://doi.org/10.1007/BF02736122</a>.</p>
 </div>
 <div id="ref-emara2024">
 <p>Emara, Salma. 2024. “Khufu: Object-Oriented Programming Using C++ — Khufu: Object-Oriented Programming Using C++.” <a href="https://learningcpp.org/cover.html" class="external-link">https://learningcpp.org/cover.html</a>.</p>

@@ -5,8 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fast and Memory Efficient Fitting of Linear Models With High-Dimensional
-    Fixed Effects • kendallknight</title>
+<title>Efficient Implementation of Kendall's Correlation Coefficient Computation • kendallknight</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -18,9 +17,8 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Fast and Memory Efficient Fitting of Linear Models With High-Dimensional
-    Fixed Effects">
-<meta property="og:description" content='The computational complexity of the algorithm is
+<script src="pkgdown.js"></script><meta property="og:title" content="Efficient Implementation of Kendall's Correlation Coefficient Computation">
+<meta property="og:description" content='The computational complexity of the implemented algorithm is
     \eqn{O(n \log(n))}{O(n log(n))}, which is faster than the base R
     implementation in \code{\link[stats]{cor}} with \code{method = "kendall"}
     that has a computational complexity of \eqn{O(n^2)}{O(n^2)}. For small
@@ -103,11 +101,7 @@
 <div class="section level2">
 <h2 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h2>
-<p>tldr; If you have a 2-4GB dataset and you need to estimate a (generalized) linear model with a large number of fixed effects, this package is for you. It works with larger datasets as well and facilites computing clustered standard errors.</p>
-<p>‘kendallknight’ is a fast and small footprint software that provides efficient functions for demeaning variables before conducting a GLM estimation. This technique is particularly useful when estimating linear models with multiple group fixed effects. It is a fork of the excellent Alpaca package created and maintained by <a href="https://github.com/amrei-stammann" class="external-link">Dr. Amrei Stammann</a>. The software can estimate Exponential Family models (e.g., Poisson) and Negative Binomial models.</p>
-<p>Traditional QR estimation can be unfeasible due to additional memory requirements. The method, which is based on Halperin (1962) vector projections offers important time and memory savings without compromising numerical stability in the estimation process.</p>
-<p>The software heavily borrows from Gaure (2013) and Stammann (2018) works on OLS and GLM estimation with large fixed effects implemented in the ‘lfe’ and ‘alpaca’ packages. The differences are that ‘kendallknight’ does not use C nor Rcpp code, instead it uses cpp11 and <a href="https://github.com/pachadotdev/cpp11armadillo" class="external-link">cpp11armadillo</a>.</p>
-<p>The summary tables borrow from Stata outputs. I have also provided integrations with ‘broom’ to facilitate the inclusion of statistical tables in Quarto/Jupyter notebooks.</p>
+<p>tldr; This package implements a different algorithm from the one implemented in base R, and it reduces the complexity of the Kendall’s correlation coefficient from O(n^2) to O(n log n) resulting in a runtime of nano seconds or minutes instead of minutes or hours. This package is written in C++ and uses cpp11 to export the functions to R. See the vignette for the mathematical details.</p>
 <p>If this software is useful to you, please consider donating on <a href="https://buymeacoffee.com/pacha" class="external-link">Buy Me A Coffee</a>. All donations will be used to continue improving <code>kendallknight</code>.</p>
 </div>
 <div class="section level2">
@@ -126,7 +120,7 @@
 <div class="section level1">
 <h1 id="benchmarks">Benchmarks<a class="anchor" aria-label="anchor" href="#benchmarks"></a>
 </h1>
-<p>We tested the <code>kendallknight</code> package against the base R implementation of the Kendall correlation using the <code>cor</code> function with <code>method = "kendall"</code> for vectors of different lengths. The results are shown in the following table:</p>
+<p>We tested the <code>kendallknight</code> package against the base R implementation of the Kendall correlation using the <code>cor</code> function with <code>method = "kendall"</code> for randomly generated vectors of different lengths. The results are shown in the following table:</p>
 <table class="table">
 <thead><tr class="header">
 <th>implementation</th>
@@ -186,6 +180,11 @@
 </tbody>
 </table>
 <p>In order to avoid distorted results, we used the <code>bench</code> package to run the benchmarking tests in a clean R session and in the Niagara supercomputer cluster that, unlike personal computers, will not distort the test results due to other processes running in the background (e.g., such as automatic updates).</p>
+</div>
+<div class="section level1">
+<h1 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
+</h1>
+<p>The package uses <code>testthat</code> for testing [@wickham2011]. The included tests are exhaustive and covered the complete code to check for correctness comparing with the base R implementation, checking corner cases, and forcing errors by passing unusable input data to the user-visible functions.</p>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>

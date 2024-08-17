@@ -24,11 +24,11 @@ knitr::opts_chunk$set(
 
 ## About
 
-tldr; If you have a large dataset, this package implements a different algorithm
-from the one implemented in base R, and it reduces the complexity of the
-Kendall's correlation coefficient from O(n^2) to O(n log n). This package is
-written in C++ and uses cpp11 to export the functions to R. See the vignette
-for the mathematical details.
+tldr; This package implements a different algorithm from the one implemented in
+base R, and it reduces the complexity of the Kendall's correlation coefficient
+from O(n^2) to O(n log n) resulting in a runtime of nano seconds or minutes
+instead of minutes or hours. This package is written in C++ and uses cpp11 to
+export the functions to R. See the vignette for the mathematical details.
 
 If this software is useful to you, please consider donating on
 [Buy Me A Coffee](https://buymeacoffee.com/pacha). All donations will

@@ -1,10 +1,9 @@
 ---
-title: "Kendallknight: An R Package for Efficient Implementation of Kendall's
+title: "kendallknight: An R Package for Efficient Implementation of Kendall's
   Correlation Coefficient Computation"
 author: "Mauricio Vargas Sepúlveda"
 email: m.sepulveda@mail.utoronto.ca
 orcid: "ORCID 0000-0003-1017-7574"
-date: 2024-08-16
 university: "University of Toronto"
 department: "Department of Political Science and Munk School of Global Affairs
   and Public Policy"
@@ -19,11 +18,25 @@ fontsize: 12pt
 linespacing: 1.5
 margin: 1
 paper: letterpaper
-customfonts: true
+customfonts: false
 sansserif: false
 amsthm: false
 outline: true
 ---
+
+# Abstract
+
+The kendallknight package introduces an efficient implementation of Kendall's
+correlation coefficient computation, significantly improving the processing time
+for large datasets without sacrificing accuracy. The kendallknight package,
+following Knight (1966) and posterior literature, reduces the computational
+complexity resulting in drastic reductions in computation time, transforming
+operations that would take minutes or hours into milliseconds or minutes, while
+maintaining precision and correctly handling edge cases and errors. The package
+is particularly advantageous in econometric and statistical contexts where rapid
+and accurate calculation of Kendall's correlation coefficient is desirable.
+Benchmarks demonstrate substantial performance gains over the base R
+implementation, especially for large datasets.
 
 # Introduction
 

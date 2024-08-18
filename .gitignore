@@ -19,7 +19,7 @@ paper/*.out
 paper/*.toc
 paper/*.ilg
 paper/*.ind
-dev/benchmarks_90000.rds
+dev/*.rds
 dev/benchmarks_80000.rds
 dev/benchmarks_70000.rds
 dev/benchmarks_60000.rds

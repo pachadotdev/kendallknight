@@ -33,4 +33,12 @@ dout <- map_df(
   ~ readRDS(.x)
 )
 
+dout <- dout %>%
+  mutate(
+    median = as.numeric(as_bench_time(median)),
+    mem_alloc = as.numeric(mem_alloc) / 1024^2
+  ) %>%
+  select(expression, nobs, median, mem_alloc) %>%
+  arrange(expression, nobs)
+
 saveRDS(dout, "dev/benchmarks_all.rds")

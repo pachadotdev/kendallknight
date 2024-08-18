@@ -166,52 +166,46 @@ Kendall correlation using the `cor` function with `method = "kendall"` for
 randomly generated vectors of different lengths. The results are shown in the
 following tables:
 
-| number of observations | kendallknight median time | base R median time |
-|------------------------|---------------------------|--------------------|
-| 10,000                 | 0.002 s                   | 1.4 s              |
-| 20,000                 | 0.004 s                   | 5.1 s              |
-| 30,000                 | 0.005 s                   | 11.8 s             |
-| 40,000                 | 0.006 s                   | 20.5 s             |
-| 50,000                 | 0.008 s                   | 32.0 s             |
-| 60,000                 | 0.009 s                   | 44.4 s             |
-| 70,000                 | 0.011 s                   | 60.6 s             |
-| 80,000                 | 0.013 s                   | 78.1 s             |
-| 90,000                 | 0.013 s                   | 99.7 s             |
-| 100,000                | 0.015 s                   | 123.0 s            |
-
-\newpage
-
-| number of observations | kendallknight memory allocation | base R memory allocation |
-|------------------------|---------------------------------|--------------------------|
-| 10,000                 | 1.45 MB                         | 0.84 MB                  |
-| 20,000                 | 2.75 MB                         | 1.45 MB                  |
-| 30,000                 | 4.12 MB                         | 2.18 MB                  |
-| 40,000                 | 5.49 MB                         | 2.90 MB                  |
-| 50,000                 | 6.87 MB                         | 3.62 MB                  |
-| 60,000                 | 8.24 MB                         | 4.35 MB                  |
-| 70,000                 | 9.61 MB                         | 5.07 MB                  |
-| 80,000                 | 11.0 MB                         | 5.80 MB                  |
-| 90,000                 | 12.4 MB                         | 6.52 MB                  |
-| 100,000                | 13.7 MB                         | 7.25 MB                  |
-
-These results can be complements with the following plots:
-
-```{r plots, message = FALSE, warning = FALSE, echo = FALSE, fig.height = 4.5}
+```{r tables, message = FALSE, warning = FALSE, echo = FALSE}
+library(knitr)
 library(ggplot2)
 library(bench)
 library(dplyr)
+library(tidyr)
 library(tintin)
 library(patchwork)
 
 benchmarks <- readRDS("../dev/benchmarks_all.rds") %>%
   mutate(expression = ifelse(expression == "kendall_cor(x, y)", "kendallknight", "base R"))
 
-benchmarks <- benchmarks %>%
-  mutate(
-    median = as.numeric(as_bench_time(median)),
-    mem_alloc = as.numeric(mem_alloc) / 1024^2
-  )
+benchmarks %>%
+  select(expression, nobs, median) %>%
+  pivot_wider(names_from = expression, values_from = median) %>%
+  rename(
+    `Number of observations` = nobs,
+    `kendallknight median time (s)` = kendallknight,
+    `base R median time (s)` = `base R`
+  ) %>%
+  # format nobs as thousands
+  mutate(`Number of observations` = scales::comma(`Number of observations`)) %>%
+  kable(digits = 2)
 
+benchmarks %>%
+  select(expression, nobs, mem_alloc) %>%
+  pivot_wider(names_from = expression, values_from = mem_alloc) %>%
+  rename(
+    `Number of observations` = nobs,
+    `kendallknight memory allocation (MB)` = kendallknight,
+    `base R memory allocation (MB)` = `base R`
+  ) %>%
+  # format nobs as thousands
+  mutate(`Number of observations` = scales::comma(`Number of observations`)) %>%
+  kable(digits = 2)
+```
+
+These results can be complements with the following plots:
+
+```{r plots1, message = FALSE, warning = FALSE, echo = FALSE, fig.height = 4.5}
 # plot time
 g1 <- ggplot(benchmarks, aes(x = nobs, y = median, color = expression)) +
   geom_line(linewidth = 2) +

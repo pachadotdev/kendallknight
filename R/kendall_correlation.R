@@ -177,15 +177,6 @@ kendall_check_ <- function(x,y) {
     stop("x and y must be numeric")
   }
 
-  # replace -Inf/Inf with big number to mimic R's behavior on C++ side
-  xinf <- is.infinite(x)
-  yinf <- is.infinite(y)
-  cppinf <- 10^7 - 1
-  x[xinf & x < 0] <- -cppinf
-  x[xinf & x > 0] <- cppinf
-  y[yinf & y < 0] <- -cppinf
-  y[yinf & y > 0] <- cppinf
-
   arr <- cbind(x, y)
   
   if (storage.mode(arr) != "double") {
@@ -193,25 +184,18 @@ kendall_check_ <- function(x,y) {
   }
 
   # arr <- arr[is.finite(arr[, 1]) & is.finite(arr[, 2]), ]
-  arr <- arr[complete.cases(arr), ]
+  arr <- arr[complete.cases(arr), , drop = FALSE]
   
+  # replace -Inf/Inf with big number to mimic R's behavior on C++ side
+  # Replace infinite values in both columns at once
+  arr[arr == Inf] <- 1e7 - 1
+  arr[arr == -Inf] <- -1e7 + 1
+
   n <- nrow(arr)
   
-  if (is.null(n)) {
+  if (n < 2) {
     stop("x and y must have at least 2 non-null observations")
   }
-
-  # arr <- arr[complete.cases(arr), ]
-
-  # n <- nrow(arr)
-  
-  # if (is.null(n)) {
-  #   stop("x and y must have at least 2 non-null observations")
-  # }
-
-  # if (n < 2) {
-  #   stop("x and y must have at least 2 non-null observations")
-  # }
 
   assign("arr", arr, envir = parent.frame())
   assign("n", n, envir = parent.frame())

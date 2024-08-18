@@ -121,61 +121,131 @@
 <h1 id="benchmarks">Benchmarks<a class="anchor" aria-label="anchor" href="#benchmarks"></a>
 </h1>
 <p>We tested the <code>kendallknight</code> package against the base R implementation of the Kendall correlation using the <code>cor</code> function with <code>method = "kendall"</code> for randomly generated vectors of different lengths. The results are shown in the following table:</p>
-<table class="table">
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="30%">
+<col width="39%">
+<col width="30%">
+</colgroup>
 <thead><tr class="header">
-<th>implementation</th>
-<th>number of observations</th>
-<th>median time</th>
-<th>memory allocation</th>
+<th align="left">Number of observations</th>
+<th align="right">kendallknight median time (s)</th>
+<th align="right">base R median time (s)</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>kendallknight</td>
-<td>100</td>
-<td>37 us</td>
-<td>52 KB</td>
+<td align="left">10,000</td>
+<td align="right">0.00</td>
+<td align="right">1.36</td>
 </tr>
 <tr class="even">
-<td>base R</td>
-<td>100</td>
-<td>265 ms</td>
-<td>129 KB</td>
+<td align="left">20,000</td>
+<td align="right">0.00</td>
+<td align="right">5.08</td>
 </tr>
 <tr class="odd">
-<td>kendallknight</td>
-<td>1,000</td>
-<td>173 us</td>
-<td>67 KB</td>
+<td align="left">30,000</td>
+<td align="right">0.01</td>
+<td align="right">11.79</td>
 </tr>
 <tr class="even">
-<td>base R</td>
-<td>1,000</td>
-<td>22 ms</td>
-<td>75 KB</td>
+<td align="left">40,000</td>
+<td align="right">0.01</td>
+<td align="right">20.54</td>
 </tr>
 <tr class="odd">
-<td>kendallknight</td>
-<td>10,000</td>
-<td>2 ms</td>
-<td>665 KB</td>
+<td align="left">50,000</td>
+<td align="right">0.01</td>
+<td align="right">32.03</td>
 </tr>
 <tr class="even">
-<td>base R</td>
-<td>10,000</td>
-<td>2 s</td>
-<td>743 KB</td>
+<td align="left">60,000</td>
+<td align="right">0.01</td>
+<td align="right">44.44</td>
 </tr>
 <tr class="odd">
-<td>kendallknight</td>
-<td>100,000</td>
-<td>22 ms</td>
-<td>6 MB</td>
+<td align="left">70,000</td>
+<td align="right">0.01</td>
+<td align="right">60.64</td>
 </tr>
 <tr class="even">
-<td>base R</td>
-<td>100,000</td>
-<td>4 m</td>
-<td>7 MB</td>
+<td align="left">80,000</td>
+<td align="right">0.01</td>
+<td align="right">78.14</td>
+</tr>
+<tr class="odd">
+<td align="left">90,000</td>
+<td align="right">0.01</td>
+<td align="right">99.72</td>
+</tr>
+<tr class="even">
+<td align="left">100,000</td>
+<td align="right">0.02</td>
+<td align="right">122.92</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="41%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Number of observations</th>
+<th align="right">kendallknight memory allocation (MB)</th>
+<th align="right">base R memory allocation (MB)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">10,000</td>
+<td align="right">1.03</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="even">
+<td align="left">20,000</td>
+<td align="right">1.91</td>
+<td align="right">1.45</td>
+</tr>
+<tr class="odd">
+<td align="left">30,000</td>
+<td align="right">2.86</td>
+<td align="right">2.18</td>
+</tr>
+<tr class="even">
+<td align="left">40,000</td>
+<td align="right">3.82</td>
+<td align="right">2.90</td>
+</tr>
+<tr class="odd">
+<td align="left">50,000</td>
+<td align="right">4.77</td>
+<td align="right">3.62</td>
+</tr>
+<tr class="even">
+<td align="left">60,000</td>
+<td align="right">5.72</td>
+<td align="right">4.35</td>
+</tr>
+<tr class="odd">
+<td align="left">70,000</td>
+<td align="right">6.68</td>
+<td align="right">5.07</td>
+</tr>
+<tr class="even">
+<td align="left">80,000</td>
+<td align="right">7.63</td>
+<td align="right">5.80</td>
+</tr>
+<tr class="odd">
+<td align="left">90,000</td>
+<td align="right">8.58</td>
+<td align="right">6.52</td>
+</tr>
+<tr class="even">
+<td align="left">100,000</td>
+<td align="right">9.54</td>
+<td align="right">7.25</td>
 </tr>
 </tbody>
 </table>

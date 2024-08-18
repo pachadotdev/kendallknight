@@ -205,7 +205,7 @@ benchmarks %>%
 
 These results can be complements with the following plots:
 
-```{r plots1, message = FALSE, warning = FALSE, echo = FALSE, fig.height = 4.5}
+```{r plots1, message = FALSE, warning = FALSE, echo = FALSE, fig.height = 3}
 # plot time
 g1 <- ggplot(benchmarks, aes(x = nobs, y = median, color = expression)) +
   geom_line(linewidth = 2) +
@@ -220,7 +220,7 @@ g1 <- ggplot(benchmarks, aes(x = nobs, y = median, color = expression)) +
 g1
 ```
 
-```{r plots2, message = FALSE, warning = FALSE, echo = FALSE, fig.height = 4.5}
+```{r plots2, message = FALSE, warning = FALSE, echo = FALSE, fig.height = 3}
 # plot memory
 g2 <- ggplot(benchmarks, aes(x = nobs, y = mem_alloc, color = expression)) +
   geom_line(linewidth = 2) +

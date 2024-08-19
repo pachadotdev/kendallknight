@@ -20,4 +20,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Mauricio Vargas Sepulveda \email{m.sepulveda@mail.utoronto.ca} (\href{https://orcid.org/0000-0003-1017-7574}{ORCID})
 
+Other contributors:
+\itemize{
+  \item Loader Catherine (original stirlerr implementations in C (2000)) [contributor]
+  \item Ross Ihaka (original chebyshev_eval, gammafn and lgammacor implementations in C (1998)) [contributor]
+}
+
 }

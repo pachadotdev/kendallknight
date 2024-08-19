@@ -1,20 +1,33 @@
 Package: kendallknight
 Type: Package
 Title: Efficient Implementation of Kendall's Correlation Coefficient Computation
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(
     person(
         given = "Mauricio",
         family = "Vargas Sepulveda",
         role = c("aut", "cre"),
         email = "m.sepulveda@mail.utoronto.ca",
-        comment = c(ORCID = "0000-0003-1017-7574"))
+        comment = c(ORCID = "0000-0003-1017-7574")),
+    person(
+        given = "Loader",
+        family = "Catherine",
+        role = "ctb",
+        comment = "original stirlerr implementations in C (2000)"
+    ),
+    person(
+        given = "Ross",
+        family = "Ihaka",
+        role = "ctb",
+        comment = "original chebyshev_eval, gammafn and lgammacor implementations in C (1998)"
+    )
     )
 Imports:
     stats
 Suggests: 
     knitr,
     rmarkdown,
+    spelling,
     testthat (>= 3.0.0),
     tidyr
 Depends: R(>= 3.5.0)
@@ -38,3 +51,4 @@ LinkingTo: cpp11
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
+Language: en-US

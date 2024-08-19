@@ -6,7 +6,9 @@ test_that("same result as base R, no NAs", {
   expect_equal(kendall_cor(x, x), 1)
 
   x <- rep(1, 3)
-  expect_warning(kendall_cor(x, x), "zero variance")
+  y <- 1:3
+  expect_warning(kendall_cor(x, y), "zero variance")
+  expect_warning(kendall_cor(y, x), "zero variance")
 
   x <- c(1, 0, 2)
   y <- c(5, 3, 4)
@@ -95,9 +97,13 @@ test_that("incompatible dimensions gives an error", {
 
   x <- matrix(1:6, nrow = 2)
   y <- 1:3
-  expect_error(kendall_cor(x, y), "x must be a uni-dimensional vector")
+  expect_error(kendall_cor(x, y), "x must be one-dimensional when y is not NULL")
 
   x <- matrix(1:3, nrow = 1)
+  y <- 1:3
+  expect_error(kendall_cor(x, y), "x must be one-dimensional when y is not NULL")
+
+  x <- matrix(1:3, ncol = 1)
   y <- 1:3
   expect_equal(kendall_cor(x, y), 1)
 })
@@ -158,11 +164,10 @@ test_that("adding random Inf/NaN/NAs gives the same result as base R", {
   y[sample(1:100, 5)] <- -Inf
   expect_lt(
     round(kendall_cor(x, y), 2) -
-      round(cor(x, y, method = "kendall", use = "pairwise.complete.obs"), 2),
+     round(cor(x, y, method = "kendall", use = "pairwise.complete.obs"), 2),
     0.01
   )
 })
-
 
 test_that("check particular case for q when testing hypothesis", {
   # change x and y until q < n * (n - 1) / 4
@@ -178,4 +183,28 @@ test_that("check particular case for q when testing hypothesis", {
   x <- c(1, 2, 3, 4, 5)
   y <- c(5, 2, 3, 2, 1)
   expect_type(kendall_cor_test(x, y, alternative = "two.sided"), "list")
+})
+
+test_that("matrix form is correct", {
+  x <- mtcars[, c("mpg", "cyl")]
+  y <- mtcars[, c("hp")]
+  
+  expect_lt(max(round(kendall_cor(x), 2) - round(cor(x, method = "kendall"), 2)), 0.01)
+  expect_equal(dim(kendall_cor(x)), c(2, 2))
+  expect_error(kendall_cor(x, y), "x must be one-dimensional when y is not NULL")
+
+  x <- mtcars[, c("mpg")]
+  expect_error(kendall_cor(x), "x must be a matrix or data.frame when y is NULL")
+  
+  x <- as.matrix(x)
+  expect_equal(kendall_cor(x), matrix(1, nrow = 1, ncol = 1))
+
+  x <- mtcars[, c("cyl", "carb")]
+  x <- as.matrix(x)
+  storage.mode(x) <- "integer"
+  x <- cbind(x, 0)
+  expect_warning(
+    expect_warning(kendall_cor(x), "zero variance"),
+    "zero variance"
+  )
 })

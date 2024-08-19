@@ -182,7 +182,6 @@ following tables:
 ```{r tables, message = FALSE, warning = FALSE, echo = FALSE}
 library(knitr)
 library(ggplot2)
-library(bench)
 library(dplyr)
 library(tidyr)
 library(tintin)
@@ -194,6 +193,7 @@ benchmarks <- readRDS("../dev/benchmarks_all.rds") %>%
 benchmarks %>%
   select(expression, nobs, median) %>%
   pivot_wider(names_from = expression, values_from = median) %>%
+  arrange(nobs) %>%
   rename(
     `Number of observations` = nobs,
     `kendallknight median time (s)` = kendallknight,
@@ -201,11 +201,12 @@ benchmarks %>%
   ) %>%
   # format nobs as thousands
   mutate(`Number of observations` = scales::comma(`Number of observations`)) %>%
-  kable(digits = 2)
+  kable(digits = 3)
 
 benchmarks %>%
   select(expression, nobs, mem_alloc) %>%
   pivot_wider(names_from = expression, values_from = mem_alloc) %>%
+  arrange(nobs) %>%
   rename(
     `Number of observations` = nobs,
     `kendallknight memory allocation (MB)` = kendallknight,
@@ -213,7 +214,7 @@ benchmarks %>%
   ) %>%
   # format nobs as thousands
   mutate(`Number of observations` = scales::comma(`Number of observations`)) %>%
-  kable(digits = 2)
+  kable(digits = 3)
 ```
 
 These results can be complements with the following plots:
@@ -273,7 +274,7 @@ The package uses `testthat` for testing [@wickham2011]. The included tests are
 exhaustive and covered the complete code to check for correctness comparing with
 the base R implementation, and also checking corner cases and forcing errors
 by passing unusable input data to the user-visible functions. The current tests
-cover 99.5% of the code.
+cover 100% of the code.
 
 # Conclusion
 

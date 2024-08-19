@@ -1,3 +1,5 @@
+# Correlation ----
+
 #' @title Kendall Correlation
 #'
 #' @description \code{\link{kendall_cor}} calculates the Kendall correlation
@@ -14,8 +16,8 @@
 #'  basis. This is the same as using \code{\link[stats]{cor}} with
 #'  \code{use = "pairwise.complete.obs"}.
 #' 
-#' @param x a numeric vector.
-#' @param y a numeric vector.
+#' @param x a numeric vector or matrix.
+#' @param y an optional numeric vector.
 #' 
 #' @return A numeric value between -1 and 1.
 #' 
@@ -32,21 +34,70 @@
 #'  Emara (2024). Khufu: Object-Oriented Programming using C++
 #'
 #' @examples
+#' # input vectors -> scalar output
 #' x <- c(1, 0, 2)
 #' y <- c(5, 3, 4)
 #' kendall_cor(x, y)
+#' 
+#' # input matrix -> matrix output
+#' x <- mtcars[, c("mpg", "cyl")]
+#' kendall_cor(x)
 #'
 #' @export
-kendall_cor <- function(x, y) {
-  arr <- NA
-  n <- NA
-  kendall_check_(x, y)
+kendall_cor <- function(x, y = NULL) {
+  if (!is.null(y)) {
+    if (is.matrix(x) || is.data.frame(x)) {
+      if (ncol(x) != 1L) {
+        stop("x must be one-dimensional when y is not NULL")
+      }
+    }
+    x2 <- NA
+    y2 <- NA
+    n <- NA
+    ok <- check_data_(x, y)
+    if (isFALSE(ok)) {
+      return(NA)
+    }
+    return(kendall_cor_(x2, y2))
+  } else {
+    if (!is.matrix(x) && !is.data.frame(x)) {
+      stop("x must be a matrix or data.frame when y is NULL")
+    }
+    # if (ncol(x) < 2L) {
+    #   stop("x must be a matrix with at least 2 columns when y is NULL")
+    # }
 
-  kw <- kendall_warnings_(arr, n)
-  if (isFALSE(kw)) { return(NA) }
-
-  kendall_cor_(arr)
+    x2 <- NA
+    y2 <- NA
+    n <- NA
+    m <- ncol(x)
+    res <- matrix(NA, nrow = m, ncol = m)
+    for (i in seq_len(m)) {
+      for (j in seq_len(m)) {
+        if (i == j) {
+          res[i, j] <- 1
+          next
+        }
+        if (i < j) {
+          x2 <- x[, i]
+          y2 <- x[, j]
+          ok <- check_data_(x2, y2)
+          if (isFALSE(ok)) {
+            res[i, j] <- NA
+            res[j, i] <- NA
+          } else {
+            cor_value <- kendall_cor_(x2, y2)
+            res[i, j] <- cor_value
+            res[j, i] <- cor_value
+          }
+        }
+      }
+    }
+    return(res)
+  }
 }
+
+# Inference ----
 
 #' @title Kendall Correlation Test
 #' 
@@ -87,17 +138,16 @@ kendall_cor_test <- function(x, y,
   alternative = c("two.sided", "greater", "less")) {
   alternative <- match.arg(alternative)
 
-  arr <- NA
+  x2 <- NA
+  y2 <- NA
   n <- NA
-  kendall_check_(x, y)
 
-  m <- ncol(arr)
+  ok <- check_data_(x, y)
+  if (isFALSE(ok)) {
+    return(NA)
+  }
 
-  kw <- kendall_warnings_(arr, m)
-
-  if (isFALSE(kw)) { return(NA) }
-
-  r <- kendall_cor_(arr)
+  r <- kendall_cor_(x2, y2)
 
   if (n < 50) {
     q <- round((r + 1) * n * (n - 1) / 4)
@@ -150,14 +200,38 @@ kendall_cor_test <- function(x, y,
   )
 }
 
-kendall_check_ <- function(x,y) {
+# Internals ----
+
+# stop_unidimensional <- function(v) {
+#   stop(paste(v, "must be a uni-dimensional vector or coercible to a vector"))
+# }
+
+warn_variance <- function(v) {
+  res <- all.equal(var(v), 0, check.class = FALSE)
+  if (isTRUE(res)) {
+    # warning(paste("X has zero variance"))
+    warning(paste(deparse(substitute(v)), "has zero variance"))
+    return(FALSE)
+  }
+  TRUE
+}
+
+# as_double <- function(x) {
+#   if (storage.mode(x) != "double") {
+#     storage.mode(x) <- "double"
+#   }
+
+#   x
+# }
+
+check_data_ <- function(x,y) {
   if (is.matrix(x)) {
     mx <- min(dim(x))
-    if (mx == 1L && (nrow(x) < ncol(x))) {
-      x <- as.vector(x)
-    } else if (mx != 1L) {
-      stop("x must be a uni-dimensional vector or coercible to a vector")
-    }
+    # if (mx == 1L && (nrow(x) < ncol(x))) {
+    #   x <- as.vector(x)
+    # } else if (mx != 1L) {
+    #   stop_unidimensional("x")
+    # }
   }
 
   if (is.matrix(y)) {
@@ -177,40 +251,24 @@ kendall_check_ <- function(x,y) {
     stop("x and y must be numeric")
   }
 
-  arr <- cbind(x, y)
+  ok <- complete.cases(x, y)
+  x <- rank(x[ok])
+  y <- rank(y[ok])
   
-  if (storage.mode(arr) != "double") {
-    storage.mode(arr) <- "double"
-  }
-
-  # arr <- arr[is.finite(arr[, 1]) & is.finite(arr[, 2]), ]
-  arr <- arr[complete.cases(arr), , drop = FALSE]
-  
-  # replace -Inf/Inf with big number to mimic R's behavior on C++ side
-  # Replace infinite values in both columns at once
-  arr[arr == Inf] <- 1e7 - 1
-  arr[arr == -Inf] <- -1e7 + 1
-
-  n <- nrow(arr)
+  n <- length(x)
   
   if (n < 2) {
     stop("x and y must have at least 2 non-null observations")
   }
 
-  assign("arr", arr, envir = parent.frame())
+  ok <- c(warn_variance(x), warn_variance(y))
+  if (!all(ok)) {
+    return(FALSE)
+  }
+
+  assign("x2", x, envir = parent.frame())
+  assign("y2", y, envir = parent.frame())
   assign("n", n, envir = parent.frame())
-}
-
-kendall_warnings_ <- function(arr, n) {
-  if (var(arr[, 1]) ==  0) {
-    warning("x has zero variance")
-    return(FALSE)
-  }
-
-  if (var(arr[, 2]) == 0) {
-    warning("y has zero variance")
-    return(FALSE)
-  }
 
   TRUE
 }

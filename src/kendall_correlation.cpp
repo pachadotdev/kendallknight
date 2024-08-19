@@ -95,8 +95,8 @@ uint64_t merge_sort_(double *x, double *buf, size_t len) {
   return swaps;
 }
 
-[[cpp11::register]] double kendall_cor_(const doubles_matrix<> &m) {
-  size_t len = m.nrow();
+[[cpp11::register]] double kendall_cor_(const doubles &x, const doubles &y) {
+  size_t len = x.size();
   std::vector<double> arr1(len), arr2(len);
   std::vector<double> buf(len);
   uint64_t m1 = 0, m2 = 0, tieCount, swapCount, nPair;
@@ -106,13 +106,13 @@ uint64_t merge_sort_(double *x, double *buf, size_t len) {
   std::vector<size_t> perm(len);
   std::iota(perm.begin(), perm.end(), 0);
   std::sort(perm.begin(), perm.end(),
-            [&](size_t i, size_t j) { return m(i, 0) < m(j, 0); });
+            [&](size_t i, size_t j) { return x[i] < x[j]; });
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif
   for (size_t i = 0; i < len; i++) {
-    arr1[i] = m(perm[i], 0);
-    arr2[i] = m(perm[i], 1);
+    arr1[i] = x[perm[i]];
+    arr2[i] = y[perm[i]];
   }
 
   // Compute nPair and initialize s

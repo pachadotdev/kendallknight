@@ -26,19 +26,23 @@ map(
   }
 )
 
-finp <- list.files("dev", pattern = "benchmarks_", full.names = TRUE)
+finp <- list.files("dev", pattern = "benchmarks_[0-9]", full.names = TRUE)
 
 dout <- map_df(
   finp,
-  ~ readRDS(.x)
+  ~ readRDS(.x) %>%
+    mutate(
+      median = as.numeric(as_bench_time(median)),
+      mem_alloc = as.numeric(mem_alloc) / 1024^2
+    ) %>%
+    select(expression, nobs, median, mem_alloc) %>%
+    group_by(expression, nobs) %>%
+    summarise(
+      median = min(median),
+      mem_alloc = min(mem_alloc)
+    ) %>%
+    ungroup() %>%
+    arrange(expression, nobs)
 )
-
-dout <- dout %>%
-  mutate(
-    median = as.numeric(as_bench_time(median)),
-    mem_alloc = as.numeric(mem_alloc) / 1024^2
-  ) %>%
-  select(expression, nobs, median, mem_alloc) %>%
-  arrange(expression, nobs)
 
 saveRDS(dout, "dev/benchmarks_all.rds")

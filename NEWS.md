@@ -1,3 +1,7 @@
+# kendallknight 0.3.0
+
+* Provides the option to pass a matrix to obtain a correlation matrix.
+
 # kendallknight 0.2.0
 
 * Uses parallelization to speed up the computation of the Kendall's correlation.

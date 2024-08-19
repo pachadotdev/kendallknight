@@ -4,12 +4,12 @@
 \alias{kendall_cor}
 \title{Kendall Correlation}
 \usage{
-kendall_cor(x, y)
+kendall_cor(x, y = NULL)
 }
 \arguments{
-\item{x}{a numeric vector.}
+\item{x}{a numeric vector or matrix.}
 
-\item{y}{a numeric vector.}
+\item{y}{an optional numeric vector.}
 }
 \value{
 A numeric value between -1 and 1.
@@ -30,9 +30,14 @@ basis. This is the same as using \code{\link[stats]{cor}} with
 \code{use = "pairwise.complete.obs"}.
 }
 \examples{
+# input vectors -> scalar output
 x <- c(1, 0, 2)
 y <- c(5, 3, 4)
 kendall_cor(x, y)
+
+# input matrix -> matrix output
+x <- mtcars[, c("mpg", "cyl")]
+kendall_cor(x)
 
 }
 \references{

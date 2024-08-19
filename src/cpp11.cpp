@@ -6,10 +6,10 @@
 #include <R_ext/Visibility.h>
 
 // kendall_correlation.cpp
-double kendall_cor_(const doubles_matrix<> & m);
-extern "C" SEXP _kendallknight_kendall_cor_(SEXP m) {
+double kendall_cor_(const doubles & x, const doubles & y);
+extern "C" SEXP _kendallknight_kendall_cor_(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(kendall_cor_(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<> &>>(m)));
+    return cpp11::as_sexp(kendall_cor_(cpp11::as_cpp<cpp11::decay_t<const doubles &>>(x), cpp11::as_cpp<cpp11::decay_t<const doubles &>>(y)));
   END_CPP11
 }
 // kendall_correlation.cpp
@@ -22,7 +22,7 @@ extern "C" SEXP _kendallknight_pkendall_(SEXP Q, SEXP n) {
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_kendallknight_kendall_cor_", (DL_FUNC) &_kendallknight_kendall_cor_, 1},
+    {"_kendallknight_kendall_cor_", (DL_FUNC) &_kendallknight_kendall_cor_, 2},
     {"_kendallknight_pkendall_",    (DL_FUNC) &_kendallknight_pkendall_,    2},
     {NULL, NULL, 0}
 };

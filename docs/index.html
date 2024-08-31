@@ -25,9 +25,10 @@
     vectors (i.e., less than 100 observations), the time difference is
     negligible. However, for larger vectors, the difference can be substantial.
     The references are Knight (1966) &lt;doi:10.2307/2282833&gt;, Abrevaya (1999)
-    &lt;doi:10.1016/S0165-1765(98)00255-9&gt;, Christensen (2005) and Emara (2024)
-    &lt;https://learningcpp.org/&gt;.
-    &lt;doi:10.1007/BF02736122&gt;.'>
+    &lt;doi:10.1016/S0165-1765(98)00255-9&gt;, Christensen (2005)
+    &lt;doi:10.1007/BF02736122&gt; and Emara (2024) &lt;https://learningcpp.org/&gt;. This
+    implementation is described in Vargas Sepulveda (2024)
+    &lt;doi:10.48550/arXiv.2408.09618&gt;.'>
 <meta property="og:image" content="/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -66,7 +67,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/details.html">Mathematical and Computational Details</a>
+      <a href="articles/usage.html">Basic 'kendallknight' usage</a>
     </li>
   </ul>
 </li>
@@ -107,8 +108,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of kendallknight like so:</p>
+<p>You can install the released version of kendallknight from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"kendallknight"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of kendallknight like so:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"pachadotdev/kendallknight"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -311,6 +315,7 @@
 <li><a href="https://app.codecov.io/gh/pachadotdev/kendallknight" class="external-link"><img src="https://app.codecov.io/gh/pachadotdev/kendallknight/graph/badge.svg?token=kDP0pWmfRk" alt="codecov"></a></li>
 <li><a href="https://buymeacoffee.com/pacha" class="external-link"><img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-yellow.svg" alt="BuyMeACoffee"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://CRAN.R-project.org/package=kendallknight" class="external-link"><img src="https://www.r-pkg.org/badges/version/kendallknight" alt="CRAN status"></a></li>
 </ul>
 </div>
 

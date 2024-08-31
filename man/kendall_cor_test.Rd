@@ -12,8 +12,7 @@ kendall_cor_test(x, y, alternative = c("two.sided", "greater", "less"))
 \item{y}{a numeric vector.}
 
 \item{alternative}{a character string specifying the alternative hypothesis.
-The possible values are \code{"two.sided"}, \code{"greater"}, and
-\code{"less"}.}
+The possible values are \code{"two.sided"}, \code{"greater"}, and \code{"less"}.}
 }
 \value{
 A list with the following components:
@@ -22,7 +21,7 @@ A list with the following components:
 \item{alternative}{A character string describing the alternative hypothesis.}
 }
 \description{
-\code{\link{kendall_cor_test}} calculates p-value for the the
+\code{kendall_cor_test()} calculates p-value for the the
 Kendall correlation using the exact values when the number of observations
 is less than 50. For larger samples, it uses an approximation as in base R.
 }

@@ -10,6 +10,8 @@
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-yellow.svg)](https://buymeacoffee.com/pacha)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/kendallknight)](https://CRAN.R-project.org/package=kendallknight)
 <!-- badges: end -->
 
 ## About
@@ -26,6 +28,12 @@ Coffee](https://buymeacoffee.com/pacha). All donations will be used to
 continue improving `kendallknight`.
 
 ## Installation
+
+You can install the released version of kendallknight from CRAN with:
+
+``` r
+install.packages("kendallknight")
+```
 
 You can install the development version of kendallknight like so:
 

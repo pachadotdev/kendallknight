@@ -15,19 +15,19 @@ kendall_cor(x, y = NULL)
 A numeric value between -1 and 1.
 }
 \description{
-\code{\link{kendall_cor}} calculates the Kendall correlation
+\code{kendall_cor()} calculates the Kendall correlation
 coefficient between two numeric vectors. It uses the algorithm described in
 Knight (1966), which is based on the number of concordant and discordant
 pairs. The computational complexity of the algorithm is
 \eqn{O(n \log(n))}{O(n log(n))}, which is faster than the base R
-implementation in \code{\link[stats]{cor}} with \code{method = "kendall"}
+implementation in \code{stats::cor(..., method = "kendall")}
 that has a computational complexity of \eqn{O(n^2)}{O(n^2)}. For small
 vectors (i.e., less than 100 observations), the time difference is
 negligible. However, for larger vectors, the difference can be substantial.
 
 By construction, the implementation drops missing values on a pairwise
-basis. This is the same as using \code{\link[stats]{cor}} with
-\code{use = "pairwise.complete.obs"}.
+basis. This is the same as using
+\code{stats::cor(..., use = "pairwise.complete.obs")}.
 }
 \examples{
 # input vectors -> scalar output

@@ -1,0 +1,83 @@
+---
+title: "Basic 'kendallknight' usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{details}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(kendallknight)
+```
+
+# Examples
+
+Following the example from
+[Real Statistics Using Excel](https://real-statistics.com/correlation/kendalls-tau-correlation/kendalls-correlation-testing-with-ties/),
+consider the following data for life expectancy in years and cigarettes per day:
+
+```{r}
+cigarettes
+```
+
+The Kendall's correlation coefficient is computed as follows:
+
+```{r}
+kendall_cor(cigarettes$life_expectancy, cigarettes$cigarettes_per_day)
+```
+
+The obtained value reveals there is a negative correlation between life
+expectancy and cigarettes per day. Furthermore, it is of interest to test the
+null hypothesis that the correlation is zero.
+
+It is possible to test the hypothesis $H_0:\: \tau = 0$ versus $H_1:\: \tau \neq 0$
+by using a two-tailed test with following code:
+
+```{r}
+# two.sided is the default argument
+kendall_cor_test(
+  cigarettes$life_expectancy,
+  cigarettes$cigarettes_per_day,
+  alternative = "two.sided"
+)
+```
+
+Based on the obtained p-value and a significance level of 0.05, the null
+hypothesis is rejected. Therefore, there is evidence to suggest that the
+correlation is not zero.
+
+It is also possible to test the hypothesis $H_0:\: \tau = 0$ versus
+$H_1:\: \tau < 0$ by using a one-tailed test with following code:
+
+```{r}
+kendall_cor_test(
+  cigarettes$life_expectancy,
+  cigarettes$cigarettes_per_day,
+  alternative = "less"
+)
+```
+
+Based on the obtained p-value and a significance level of 0.05, the null
+hypothesis is rejected. Therefore, there is evidence to suggest that the
+correlation is negative.
+
+It is also possible to test the hypothesis $H_0:\: \tau = 0$ versus
+$H_1:\: \tau > 0$ by using a one-tailed test with following code:
+
+```{r}
+kendall_cor_test(
+  cigarettes$life_expectancy,
+  cigarettes$cigarettes_per_day,
+  alternative = "greater"
+)
+```
+
+Based on the obtained p-value and a significance level of 0.05, the null
+hypothesis is not rejected. Therefore, there is no evidence to suggest that the
+correlation is positive.

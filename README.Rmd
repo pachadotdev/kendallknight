@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 [![codecov](https://app.codecov.io/gh/pachadotdev/kendallknight/graph/badge.svg?token=kDP0pWmfRk)](https://app.codecov.io/gh/pachadotdev/kendallknight)
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-yellow.svg)](https://buymeacoffee.com/pacha)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![CRAN status](https://www.r-pkg.org/badges/version/kendallknight)](https://CRAN.R-project.org/package=kendallknight)
 <!-- badges: end -->
 
 ## About
@@ -35,6 +36,12 @@ If this software is useful to you, please consider donating on
 be used to continue improving `kendallknight`.
 
 ## Installation
+
+You can install the released version of kendallknight from CRAN with:
+
+``` r
+install.packages("kendallknight")
+```
 
 You can install the development version of kendallknight like so:
 

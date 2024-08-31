@@ -6,7 +6,7 @@
 \alias{kendallknight-package}
 \title{kendallknight: Efficient Implementation of Kendall's Correlation Coefficient Computation}
 \description{
-The computational complexity of the implemented algorithm is \eqn{O(n \log(n))}{O(n log(n))}, which is faster than the base R implementation in \code{\link[stats]{cor}} with \code{method = "kendall"} that has a computational complexity of \eqn{O(n^2)}{O(n^2)}. For small vectors (i.e., less than 100 observations), the time difference is negligible. However, for larger vectors, the difference can be substantial. The references are Knight (1966) \doi{10.2307/2282833}, Abrevaya (1999) \doi{10.1016/S0165-1765(98)00255-9}, Christensen (2005) and Emara (2024) \url{https://learningcpp.org/}. \doi{10.1007/BF02736122}.
+The computational complexity of the implemented algorithm is \eqn{O(n \log(n))}{O(n log(n))}, which is faster than the base R implementation in \code{\link[stats]{cor}} with \code{method = "kendall"} that has a computational complexity of \eqn{O(n^2)}{O(n^2)}. For small vectors (i.e., less than 100 observations), the time difference is negligible. However, for larger vectors, the difference can be substantial. The references are Knight (1966) \doi{10.2307/2282833}, Abrevaya (1999) \doi{10.1016/S0165-1765(98)00255-9}, Christensen (2005) \doi{10.1007/BF02736122} and Emara (2024) \url{https://learningcpp.org/}. This implementation is described in Vargas Sepulveda (2024) \doi{10.48550/arXiv.2408.09618}.
 }
 \seealso{
 Useful links:

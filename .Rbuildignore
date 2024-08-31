@@ -13,6 +13,6 @@
 ^Makefile$
 ^codemeta\.json$
 ^CODE_OF_CONDUCT\.md$
-^paper/.*
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+inst/arxiv_preprint

@@ -7,12 +7,12 @@ orcid: "ORCID 0000-0003-1017-7574"
 university: "University of Toronto"
 department: "Department of Political Science and Munk School of Global Affairs
   and Public Policy"
-output:
-  pdf_document:
-    latex_engine: pdflatex
+format:
+  pdf:
+    pdf-engine: pdflatex
     template: "template.tex"
-    keep_tex: true
-bibliography: ../inst/references.bib
+    keep-tex: true
+bibliography: references.bib
 csl: chicago.csl
 fontsize: 12pt
 linespacing: 1.5
@@ -41,7 +41,7 @@ implementation, especially for large datasets.
 # Introduction
 
 Kendall's correlation coefficient is a non-parametric measure of association
-between two variables and it is particularly useful to compute pseudo-$R$2$
+between two variables and it is particularly useful to compute pseudo-$R^2$
 statistics in the context of Poisson regression with fixed effects
 [@santos2006].
 
@@ -83,7 +83,7 @@ The corresponding definitions for $c$, $d$, $e$ and $f$ are:
 
 \begin{eqnarray*}
 c &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_1(x_i, x_j, y_i, y_j), \\
-d &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_2(x_i, x_j, y_i, y_j]), \\ 
+d &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_2(x_i, x_j, y_i, y_j), \\ 
 e &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_3(x_i, x_j) g_4(y_i, y_j), \\
 f &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_4(x_i, x_j) g_3(y_j, y_i).
 \end{eqnarray*}
@@ -138,7 +138,7 @@ An array that represents a binary tree has a search operation with a
 computational complexity of $O(\log(n))$ and an insertion operation with a
 computational complexity of $O(n)$ [@abrevaya1999; @christensen2005]. The
 resulting computational complexity of the search and insert operations in an
-array is $O(n)$ [@emara2024]. Repeating thhe search and insert operation for
+array is $O(n)$ [@emara2024]. Repeating the search and insert operation for
 each element in the array results in a computational complexity of $O(n^2)$,
 resulting in the same computational complexity as the naive implementation.
 
@@ -169,8 +169,8 @@ Kendall's correlation coeeficient as a function that can be used in R by using
 the `cpp11` headers [@cpp11]. Unlike existing implementations with
 $O(n \log(n))$ complexity, such as @pcapp, this implementation also provides
 dedicated functions to test the statistical significance of the computed
-correlation, and for which it uses the Gamma function that R already implemented
-in C [@rstats].
+correlation, and for which it uses a C++ port of the Gamma function that R
+already implemented in C [@rstats].
 
 # Benchmarks
 
@@ -258,15 +258,19 @@ exporter-time and importer-time fixed effects takes around 0.4 seconds with
 the `capybara` package [@capybara].
 
 To obtain summary tables for the same model, including clustered standard
-errors, significance and pseudo-$R$2$, it takes around 0.2 additional seconds
+errors, significance and pseudo-$R^2$, it takes around 0.2 additional seconds
 using `kendallknight`. Using base R to compute the Kendall's correlation
-coefficient for the pseudo-$R$2$ statistic takes around 7.5 seconds without the
+coefficient for the pseudo-$R^2$ statistic takes around 7.5 seconds without the
 rest of statistics.
 
-In order to avoid distorted results, we used the `bench` package to run the
-benchmarking tests in a clean R session without other processes running in the
-background (e.g., such as automatic updates) on a ThinkPad X1 Carbon with an
-Intel Core i7-1185G7 with eight cores running Pop!_OS 22.04.
+The benchmarks were conducted on a ThinkPad X1 Carbon Gen 9 with the following
+specifications:
+
+- Processor: Intel Core i7-1185G7 with eight cores
+- Memory: 16 GB LPDDR4Xx-4266
+- Operating System: Pop!_OS 22.04 based on Ubuntu 22.04
+- R Version: 4.4.1
+- BLAS Library: OpenBLAS 0.3.20
 
 # Testing
 
@@ -275,6 +279,33 @@ exhaustive and covered the complete code to check for correctness comparing with
 the base R implementation, and also checking corner cases and forcing errors
 by passing unusable input data to the user-visible functions. The current tests
 cover 100% of the code.
+
+# Installation and Usage
+
+The `kendallknight` package is available on CRAN and can be installed using the
+following command:
+
+```r
+# CRAN
+install.packages("kendallknight")
+
+# GitHub
+remotes::install_github("pachadotdev/kendallknight")
+```
+
+The package can be used as in the following example:
+
+```{r}
+library(kendallknight)
+
+set.seed(200)
+x <- rnorm(100)
+y <- rnorm(100)
+
+kendall_cor(x, y)
+
+kendall_cor_test(x, y, alternative = "less")
+```
 
 # Conclusion
 

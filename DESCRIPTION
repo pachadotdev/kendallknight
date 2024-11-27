@@ -42,8 +42,8 @@ Description: The computational complexity of the implemented algorithm is
     implementation is described in Vargas Sepulveda (2024)
     <doi:10.48550/arXiv.2408.09618>.
 License: Apache License (>= 2)
-BugReports: https://github.com/pachadotdev/capybara/issues
-URL: https://pacha.dev/capybara/, https://github.com/pachadotdev/capybara
+BugReports: https://github.com/pachadotdev/kendallknight/issues
+URL: https://pacha.dev/kendallknight/, https://github.com/pachadotdev/kendallknight
 RoxygenNote: 7.3.1
 Encoding: UTF-8
 NeedsCompilation: yes

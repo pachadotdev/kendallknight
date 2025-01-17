@@ -17,6 +17,7 @@
 \usepackage{longtable}
 \usepackage{multirow}
 \usepackage{graphicx}
+\newcommand{\pandocbounded}[1]{#1}
 \usepackage{afterpage}
 
 \usepackage{datetime}
@@ -272,19 +273,11 @@ r(x,y) = \frac{c - d}{c + d} =
 \end{equation*}
 
 A naive implementation consisting in comparing all pairs of observations
-would require \(O(n^2)\) operations. However, the Kendall's correlation
-coefficient can be computed more efficiently by sorting the data and
-using the number of inversions in the data to compute the correlation in
-\(O(n \log(n))\) operations by using binary trees (Knight 1966).
-
-An array that represents a binary tree has a search operation with a
-computational complexity of \(O(\log(n))\) and an insertion operation
-with a computational complexity of \(O(n)\) (Abrevaya 1999; Christensen
-2005). The resulting computational complexity of the search and insert
-operations in an array is \(O(n)\) (Emara 2024). Repeating the search
-and insert operation for each element in the array results in a
-computational complexity of \(O(n^2)\), resulting in the same
-computational complexity as the naive implementation.
+has a computational complexity of \(O(n^2)\). However, the Kendall's
+correlation coefficient can be computed more efficiently by sorting the
+data and using the number of inversions in the data to compute the
+correlation with a computational complexity of \(O(n \log(n))\) using
+binary trees (Knight 1966).
 
 \section{Implementation}\label{implementation}
 
@@ -340,9 +333,9 @@ vectors of different lengths. The results are shown in the following
 tables:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3026}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3947}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3026}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3026}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3947}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3026}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Number of observations
@@ -368,9 +361,9 @@ base R median time (s)
 \end{longtable}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2556}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4111}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2556}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4111}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Number of observations
@@ -397,9 +390,9 @@ base R memory allocation (MB)
 
 These results can be complements with the following plots:
 
-\includegraphics{paper_files/figure-pdf/plots1-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/plots1-1.pdf}}
 
-\includegraphics{paper_files/figure-pdf/plots2-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/plots2-1.pdf}}
 
 As a reference, estimating the coefficients for a Poisson regression
 using a dataframe with around 28,000 observations, five variables and

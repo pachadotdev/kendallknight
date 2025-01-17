@@ -127,19 +127,11 @@ r(x,y) = \frac{c - d}{c + d} =
  \frac{4c}{n(n - 1)} - 1
 \end{equation*}
 
-A naive implementation consisting in comparing all pairs of observations would
-require $O(n^2)$ operations. However, the Kendall's correlation coefficient can
-be computed more efficiently by sorting the data and using the number of
-inversions in the data to compute the correlation in $O(n \log(n))$ operations
-by using binary trees [@knight1966].
-
-An array that represents a binary tree has a search operation with a
-computational complexity of $O(\log(n))$ and an insertion operation with a
-computational complexity of $O(n)$ [@abrevaya1999; @christensen2005]. The
-resulting computational complexity of the search and insert operations in an
-array is $O(n)$ [@emara2024]. Repeating the search and insert operation for
-each element in the array results in a computational complexity of $O(n^2)$,
-resulting in the same computational complexity as the naive implementation.
+A naive implementation consisting in comparing all pairs of observations has
+a computational complexity of $O(n^2)$. However, the Kendall's correlation
+coefficient can be computed more efficiently by sorting the data and using the
+number of inversions in the data to compute the correlation with a computational
+complexity of $O(n \log(n))$ using binary trees [@knight1966].
 
 # Implementation
 

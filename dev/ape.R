@@ -1,40 +1,29 @@
 library(bench)
 library(dplyr)
 library(purrr)
-library(kendallknight)
+load_all()
 
-# set.seed(123)
+n <- c(10, 100, 1000, 10000)
 
-# n <- 100L
+# absolute percentage error
+ape <- function(x, y) {
+  abs((x - y) / x) * 100
+}
 
-# x <- rnorm(n)
-# y <- rnorm(n)
-
-# library(pcaPP)
-
-# pcaPP::cor.fk(x,y)
-# kendall_cor(x, y)
-
-set.seed(200100)
-
-n <- seq(1,10,1) * 10^(4)
-
-map(
+errors <- map_dbl(
   n,
   function(n) {
+    set.seed(200100)
+    
     x <- rnorm(n)
-    y <- rpois(n, 2)
+    y <- rnorm(n)
+    z <- rbinom(n / 1, 1, 0.5)
+    y[z == 1] <- x[z == 1]
 
-    res <- bench::mark(
-      kendall_cor(x, y),
-      cor(x, y, method = "kendall"),
-      iterations = 3
-    )
+    c1 <- cor(x, y, method = "kendall")
+    c2 <- kendall_cor(x, y)
 
-    res %>%
-      select(expression, median, mem_alloc) %>%
-      mutate(nobs = length(x)) %>%
-      saveRDS(paste0("dev/benchmarks_", n, ".rds"))
+    ape(c1, c2)
   }
 )
 

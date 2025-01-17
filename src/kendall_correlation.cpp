@@ -6,6 +6,8 @@
 // note: the len < 2 conditions are commented out because the R function checks
 // for this condition before calling the C++ functions
 
+#include <algorithm>
+#include <cmath>
 #include <cpp11.hpp>
 #include <numeric>
 #include <vector>
@@ -21,10 +23,6 @@
 using namespace cpp11;
 
 uint64_t insertion_sort_(double *arr, size_t len) {
-  // if (len < 2) {
-  //   return 0;
-  // }
-
   size_t maxJ = len - 1, i;
   uint64_t swapCount = 0;
 
@@ -79,10 +77,6 @@ static uint64_t merge_(double *from, double *to, size_t middle, size_t len) {
 }
 
 uint64_t merge_sort_(double *x, double *buf, size_t len) {
-  // if (len < 2) {
-  //   return 0;
-  // }
-
   if (len < 10) {
     return insertion_sort_(x, len);
   }
@@ -96,6 +90,26 @@ uint64_t merge_sort_(double *x, double *buf, size_t len) {
 
   memcpy(x, buf, len * sizeof(double));
   return swaps;
+}
+
+static uint64_t ties_(double *data, size_t len) { /* Assumes data is sorted.*/
+  uint64_t Ms = 0, tieCount = 0;
+  size_t i;
+
+  for (i = 1; i < len; i++) {
+    if (data[i] == data[i - 1]) {
+      tieCount++;
+    } else if (tieCount) {
+      Ms += (tieCount * (tieCount + 1)) / 2;
+      tieCount++;
+      tieCount = 0;
+    }
+  }
+  if (tieCount) {
+    Ms += (tieCount * (tieCount + 1)) / 2;
+    tieCount++;
+  }
+  return Ms;
 }
 
 [[cpp11::register]] double kendall_cor_(const doubles &x, const doubles &y) {
@@ -128,30 +142,24 @@ uint64_t merge_sort_(double *x, double *buf, size_t len) {
     if (arr1[i] == arr1[i - 1]) {
       tieCount++;
     } else if (tieCount > 0) {
+      std::sort(arr2.begin() + i - tieCount - 1, arr2.begin() + i);
       m1 += tieCount * (tieCount + 1) / 2;
+      s += ties_(arr2.data() + i - tieCount - 1, tieCount + 1);
+      tieCount++;
       tieCount = 0;
     }
   }
   if (tieCount > 0) {
+    std::sort(arr2.begin() + len - tieCount - 1, arr2.end());
     m1 += tieCount * (tieCount + 1) / 2;
+    s += ties_(arr2.data() + len - tieCount - 1, tieCount + 1);
+    tieCount++;
   }
 
   swapCount = merge_sort_(arr2.data(), buf.data(), len);
 
   // Compute m2
-  m2 = 0;
-  tieCount = 0;
-  for (size_t i = 1; i < len; i++) {
-    if (arr2[i] == arr2[i - 1]) {
-      tieCount++;
-    } else if (tieCount) {
-      m2 += (tieCount * (tieCount + 1)) / 2;
-      tieCount = 0;
-    }
-  }
-  if (tieCount) {
-    m2 += (tieCount * (tieCount + 1)) / 2;
-  }
+  m2 = ties_(arr2.data(), len);
 
   // Adjust for ties
   s -= (m1 + m2) + 2 * swapCount;
@@ -202,63 +210,59 @@ double chebyshev_eval_(double x, const double *a, const int n) {
 }
 
 double stirlerr_(double n) {
-  const double S0 = 0.083333333333333333333;        // 1/12
-  const double S1 = 0.00277777777777777777778;      // 1/360
-  const double S2 = 0.00079365079365079365079365;   // 1/1260
-  const double S3 = 0.000595238095238095238095238;  // 1/1680
-  const double S4 = 0.0008417508417508417508417508; // 1/1188
+  const double S0 = 0.083333333333333333333;         // 1/12
+  const double S1 = 0.00277777777777777777778;       // 1/360
+  const double S2 = 0.00079365079365079365079365;    // 1/1260
+  const double S3 = 0.000595238095238095238095238;   // 1/1680
+  const double S4 = 0.0008417508417508417508417508;  // 1/1188
 
   // Error for 0, 0.5, 1.0, 1.5, ..., 14.5, 15.0.
   const std::vector<double> sferr_halves = {
-      0.0,                           // n=0 - wrong, place holder only
-      0.1534264097200273452913848,   // 0.5
-      0.0810614667953272582196702,   // 1.0
-      0.0548141210519176538961390,   // 1.5
-      0.0413406959554092940938221,   // 2.0
-      0.03316287351993628748511048,  // 2.5
-      0.02767792568499833914878929,  // 3.0
-      0.02374616365629749597132920,  // 3.5
-      0.02079067210376509311152277,  // 4.0
-      0.01848845053267318523077934,  // 4.5
-      0.01664469118982119216319487,  // 5.0
-      0.01513497322191737887351255,  // 5.5
-      0.01387612882307074799874573,  // 6.0
-      0.01281046524292022692424986,  // 6.5
-      0.01189670994589177009505572,  // 7.0
-      0.01110455975820691732662991,  // 7.5
-      0.010411265261972096497478567, // 8.0
-      0.009799416126158803298389475, // 8.5
-      0.009255462182712732917728637, // 9.0
-      0.008768700134139385462952823, // 9.5
-      0.008330563433362871256469318, // 10.0
-      0.007934114564314020547248100, // 10.5
-      0.007573675487951840794972024, // 11.0
-      0.007244554301320383179543912, // 11.5
-      0.006942840107209529865664152, // 12.0
-      0.006665247032707682442354394, // 12.5
-      0.006408994188004207068439631, // 13.0
-      0.006171712263039457647532867, // 13.5
-      0.005951370112758847735624416, // 14.0
-      0.005746216513010115682023589, // 14.5
-      0.005554733551962801371038690  // 15.0
+      0.0,                            // n=0 - wrong, place holder only
+      0.1534264097200273452913848,    // 0.5
+      0.0810614667953272582196702,    // 1.0
+      0.0548141210519176538961390,    // 1.5
+      0.0413406959554092940938221,    // 2.0
+      0.03316287351993628748511048,   // 2.5
+      0.02767792568499833914878929,   // 3.0
+      0.02374616365629749597132920,   // 3.5
+      0.02079067210376509311152277,   // 4.0
+      0.01848845053267318523077934,   // 4.5
+      0.01664469118982119216319487,   // 5.0
+      0.01513497322191737887351255,   // 5.5
+      0.01387612882307074799874573,   // 6.0
+      0.01281046524292022692424986,   // 6.5
+      0.01189670994589177009505572,   // 7.0
+      0.01110455975820691732662991,   // 7.5
+      0.010411265261972096497478567,  // 8.0
+      0.009799416126158803298389475,  // 8.5
+      0.009255462182712732917728637,  // 9.0
+      0.008768700134139385462952823,  // 9.5
+      0.008330563433362871256469318,  // 10.0
+      0.007934114564314020547248100,  // 10.5
+      0.007573675487951840794972024,  // 11.0
+      0.007244554301320383179543912,  // 11.5
+      0.006942840107209529865664152,  // 12.0
+      0.006665247032707682442354394,  // 12.5
+      0.006408994188004207068439631,  // 13.0
+      0.006171712263039457647532867,  // 13.5
+      0.005951370112758847735624416,  // 14.0
+      0.005746216513010115682023589,  // 14.5
+      0.005554733551962801371038690   // 15.0
   };
 
   double nn;
 
   if (n <= 15.0) {
     nn = n + n;
-    if (nn == static_cast<int>(nn))
-      return sferr_halves[static_cast<int>(nn)];
+    if (nn == static_cast<int>(nn)) return sferr_halves[static_cast<int>(nn)];
     return std::lgamma(n + 1.0) - (n + 0.5) * std::log(n) + n - M_LN_SQRT_2PI;
   }
 
   nn = n * n;
-  if (n > 500)
-    return (S0 - S1 / nn) / n;
-  if (n > 80)
-    return (S0 - (S1 - S2 / nn) / nn) / n;
-  if (n > 35)
-    return (S0 - (S1 - (S2 - S3 / nn) / nn) / nn) / n;
+  if (n > 500) return (S0 - S1 / nn) / n;
+  if (n > 80) return (S0 - (S1 - S2 / nn) / nn) / n;
+  if (n > 35) return (S0 - (S1 - (S2 - S3 / nn) / nn) / nn) / n;
   // 15 < n <= 35
   return (S0 - (S1 - (S2 - (S3 - S4 / nn) / nn) / nn) / nn) / n;
 }
@@ -350,8 +354,7 @@ double gammafn_(double x) {
   static const double xsml = 2.2474362225598545e-308;
   static const double dxrel = 1.490116119384765696e-8;
 
-  if (std::isnan(x))
-    return x;
+  if (std::isnan(x)) return x;
 
   if (x == 0 || (x < 0 && x == std::round(x))) {
     warning("gammafn_: ME_DOMAIN");
@@ -363,13 +366,11 @@ double gammafn_(double x) {
 
   if (y <= 10) {
     int n = static_cast<int>(x);
-    if (x < 0)
-      --n;
+    if (x < 0) --n;
     y = x - n;
     --n;
     value = chebyshev_eval_(y * 2 - 1, gamcs, ngam) + .9375;
-    if (n == 0)
-      return value;
+    if (n == 0) return value;
 
     if (n < 0) {
       if (x < -0.5 && std::fabs(x - static_cast<int>(x - 0.5) / x) < dxrel) {
@@ -403,16 +404,14 @@ double gammafn_(double x) {
 
     if (y <= 50 && y == static_cast<int>(y)) {
       value = 1.;
-      for (i = 2; i < y; i++)
-        value *= i;
+      for (i = 2; i < y; i++) value *= i;
     } else {
       value = std::exp(
           (y - 0.5) * std::log(y) - y + M_LN_SQRT_2PI +
           ((2 * y == static_cast<int>(2 * y)) ? stirlerr_(y) : lgammacor_(y)));
     }
 
-    if (x > 0)
-      return value;
+    if (x > 0) return value;
 
     if (std::fabs((x - static_cast<int>(x - 0.5)) / x) < dxrel) {
       warning("gammafn_: ME_PRECISION");

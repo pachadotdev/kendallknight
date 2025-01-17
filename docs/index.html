@@ -19,12 +19,12 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Efficient Implementation of Kendall's Correlation Coefficient Computation">
 <meta property="og:description" content='The computational complexity of the implemented algorithm is
-    \eqn{O(n \log(n))}{O(n log(n))}, which is faster than the base R
-    implementation in \code{\link[stats]{cor}} with \code{method = "kendall"}
-    that has a computational complexity of \eqn{O(n^2)}{O(n^2)}. For small
-    vectors (i.e., less than 100 observations), the time difference is
-    negligible. However, for larger vectors, the difference can be substantial.
-    The references are Knight (1966) &lt;doi:10.2307/2282833&gt;, Abrevaya (1999)
+    O(n log(n)), which is faster than the base R implementation in
+    \code{\link[stats]{cor}} with \code{method = "kendall"}
+    that has a computational complexity of O(n^2). For small vectors (i.e.,
+    less than 100 observations), the time difference is negligible. However,
+    for larger vectors, the difference can be substantial. The references are
+    Knight (1966) &lt;doi:10.2307/2282833&gt;, Abrevaya (1999)
     &lt;doi:10.1016/S0165-1765(98)00255-9&gt;, Christensen (2005)
     &lt;doi:10.1007/BF02736122&gt; and Emara (2024) &lt;https://learningcpp.org/&gt;. This
     implementation is described in Vargas Sepulveda (2024)

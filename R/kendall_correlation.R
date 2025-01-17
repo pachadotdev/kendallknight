@@ -133,8 +133,7 @@ kendall_cor <- function(x, y = NULL) {
 #' kendall_cor_test(x, y)
 #' 
 #' @export
-kendall_cor_test <- function(x, y,
-  alternative = c("two.sided", "greater", "less")) {
+kendall_cor_test <- function(x, y, alternative = c("two.sided", "greater", "less")) {
   alternative <- match.arg(alternative)
 
   x2 <- NA
@@ -147,6 +146,7 @@ kendall_cor_test <- function(x, y,
   }
 
   r <- kendall_cor_(x2, y2)
+  n <- length(x2) # Ensure n is correctly assigned
 
   if (n < 50) {
     q <- round((r + 1) * n * (n - 1) / 4)
@@ -157,8 +157,8 @@ kendall_cor_test <- function(x, y,
         } else {
           p <- pkendall_(q, n)
         }
-          min(2 * p, 1)
-        },
+        min(2 * p, 1)
+      },
       "greater" = 1 - pkendall_(q - 1, n),
       "less" = pkendall_(q, n)
     )
@@ -172,11 +172,8 @@ kendall_cor_test <- function(x, y,
     vt <- sum(xties * (xties - 1) * (2 * xties + 5))
     vu <- sum(yties * (yties - 1) * (2 * yties + 5))
     v1 <- sum(xties * (xties - 1)) * sum(yties * (yties - 1))
-    v2 <- sum(xties * (xties - 1) * (xties - 2)) *
-      sum(yties * (yties - 1) * (yties - 2))
-    var_S <- (v0 - vt - vu) / 18 +
-      v1 / (2 * n * (n - 1)) +
-      v2 / (9 * n * (n - 1) * (n - 2))
+    v2 <- sum(xties * (xties - 1) * (xties - 2)) * sum(yties * (yties - 2))
+    var_S <- (v0 - vt - vu) / 18 + v1 / (2 * n * (n - 1)) + v2 / (9 * n * (n - 1) * (n - 2))
     S <- r * sqrt((T0 - T1) * (T0 - T2)) / sqrt(var_S)
     pv <- switch(alternative,
       "two.sided" = 2 * min(pnorm(S), pnorm(S, lower.tail = FALSE)),
@@ -185,8 +182,7 @@ kendall_cor_test <- function(x, y,
     )
   }
 
-  alt <- switch(
-    alternative,
+  alt <- switch(alternative,
     "two.sided" = "alternative hypothesis: true tau is not equal to 0",
     "greater" = "alternative hypothesis: true tau is greater than 0",
     "less" = "alternative hypothesis: true tau is less than 0"

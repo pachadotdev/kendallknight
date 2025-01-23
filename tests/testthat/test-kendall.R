@@ -208,3 +208,16 @@ test_that("matrix form is correct", {
     "zero variance"
   )
 })
+
+test_that("inference with ties gives similar p-values", {
+  set.seed(123)
+  x <- rpois(10, 2)
+  y <- rpois(10, 3)
+  x[5] <- y[5]
+
+  k1 <- kendall_cor_test(x, y, alternative = "two.sided")
+  k2 <- suppressWarnings(cor.test(x, y, method = "kendall", alternative = "two.sided"))
+  k3 <- k1$p_value / k2$p.value
+
+  expect_lt(abs(k3 - 1), 0.05)
+})

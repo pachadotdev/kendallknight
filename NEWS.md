@@ -1,3 +1,8 @@
+# kendallknight 0.5.0
+
+* Corrects a severe error with the p-value computation. Thanks to @ouroboro for
+  pointing this out (#3).
+
 # kendallknight 0.4.0
 
 * Provides an implementation of chebyshev_eval, gammafn, lgammacor and stirlerr

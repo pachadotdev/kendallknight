@@ -51,61 +51,7 @@ remotes::install_github("pachadotdev/kendallknight")
 
 ## Examples
 
-See the documentation: https://pacha.dev/kendallknight/.
-
-# Benchmarks
-
-We tested the `kendallknight` package against the base R implementation of the
-Kendall correlation using the `cor` function with `method = "kendall"` for
-randomly generated vectors of different lengths. The results are shown in the
-following table:
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
-library(knitr)
-library(dplyr)
-library(tidyr)
-
-benchmarks <- readRDS("dev/benchmarks_all.rds") %>%
-  mutate(expression = ifelse(expression == "kendall_cor(x, y)", "kendallknight", "base R"))
-
-benchmarks %>%
-  select(expression, nobs, median) %>%
-  pivot_wider(names_from = expression, values_from = median) %>%
-  arrange(nobs) %>%
-  rename(
-    `Number of observations` = nobs,
-    `kendallknight median time (s)` = kendallknight,
-    `base R median time (s)` = `base R`
-  ) %>%
-  # format nobs as thousands
-  mutate(`Number of observations` = scales::comma(`Number of observations`)) %>%
-  kable(digits = 3)
-
-benchmarks %>%
-  select(expression, nobs, mem_alloc) %>%
-  pivot_wider(names_from = expression, values_from = mem_alloc) %>%
-  arrange(nobs) %>%
-  rename(
-    `Number of observations` = nobs,
-    `kendallknight memory allocation (MB)` = kendallknight,
-    `base R memory allocation (MB)` = `base R`
-  ) %>%
-  # format nobs as thousands
-  mutate(`Number of observations` = scales::comma(`Number of observations`)) %>%
-  kable(digits = 3)
-```
-
-In order to avoid distorted results, we used the `bench` package to run the
-benchmarking tests in a clean R session and in the Niagara supercomputer
-cluster that, unlike personal computers, will not distort the test results due
-to other processes running in the background (e.g., such as automatic updates).
-
-# Testing
-
-The package uses `testthat` for testing [@wickham2011]. The included tests are
-exhaustive and covered the complete code to check for correctness comparing with
-the base R implementation, checking corner cases, and forcing errors
-by passing unusable input data to the user-visible functions.
+See the documentation and vignette: https://pacha.dev/kendallknight/.
 
 ## Code of Conduct
 

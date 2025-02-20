@@ -1,3 +1,8 @@
+# kendallknight 0.6.0
+
+* Uses "htest" S3 class for the p-value print method. This is a minor change
+  that makes the output more consistent with other R functions.
+  
 # kendallknight 0.5.0
 
 * Corrects a severe error with the p-value computation. Thanks to @ouroboro for

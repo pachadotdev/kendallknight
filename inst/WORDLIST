@@ -20,10 +20,12 @@ eval
 frac
 gammafn
 kendall
+kendallknight
 lgammacor
 nano
 neq
 parallelization
 stirlerr
+testthat
 thhe
 tldr

@@ -183,18 +183,21 @@ kendall_cor_test <- function(x, y, alternative = c("two.sided", "greater", "less
   }
 
   alt <- switch(alternative,
-    "two.sided" = "alternative hypothesis: true tau is not equal to 0",
-    "greater" = "alternative hypothesis: true tau is greater than 0",
-    "less" = "alternative hypothesis: true tau is less than 0"
+    "two.sided" = "true tau is not equal to 0",
+    "greater" = "true tau is greater than 0",
+    "less" = "true tau is less than 0"
   )
 
-  list(
-    statistic = r,
-    p_value = pv,
-    alternative = alt
+  result <- list(
+    statistic = c(tau = r),
+    p.value = pv,
+    alternative = alt,
+    method = "Kendall's rank correlation tau",
+    data.name = paste(deparse(substitute(x)), "and", deparse(substitute(y)))
   )
+  class(result) <- "htest"
+  return(result)
 }
-
 # Internals ----
 
 # stop_unidimensional <- function(v) {

@@ -11,9 +11,9 @@ The computational complexity of the implemented algorithm for Kendall's correlat
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://pacha.dev/capybara/}
-  \item \url{https://github.com/pachadotdev/capybara}
-  \item Report bugs at \url{https://github.com/pachadotdev/capybara/issues}
+  \item \url{https://pacha.dev/kendallknight/}
+  \item \url{https://github.com/pachadotdev/kendallknight}
+  \item Report bugs at \url{https://github.com/pachadotdev/kendallknight/issues}
 }
 
 }

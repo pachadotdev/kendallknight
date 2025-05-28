@@ -1,6 +1,15 @@
-cigarettes <- data.frame(
-  life_expectancy = c(78,78,60,53,85,84,73,78,78,75,65,72,58,92,65),
-  cigarettes_per_day = c(4,23,25,48,17,8,4,26,23,19,24,35,29,4,14)
-)
+library(dplyr)
+library(spuriouscorrelations)
 
-use_data(cigarettes)
+arcade <- spurious_correlations %>%
+  filter(var2_short == "Arcade revenue") %>%
+  select(year, var1, var2, var1_value, var2_value)
+
+unique(arcade$var1)
+unique(arcade$var2)
+
+arcade <- spurious_correlations %>%
+  filter(var2_short == "Arcade revenue") %>%
+  select(year, doctorates = var1_value, revenue = var2_value)
+
+use_data(arcade, overwrite = TRUE)

@@ -19,7 +19,7 @@ is less than 50. For larger samples, it uses an approximation as in base R."><me
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kendallknight</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@ is less than 50. For larger samples, it uses an approximation as in base R."><me
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/pachadotdev/capybara/" class="external-link">
+  <a href="https://github.com/pachadotdev/kendallknight/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
 
   </a>
@@ -56,7 +56,7 @@ is less than 50. For larger samples, it uses an approximation as in base R."><me
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Kendall Correlation Test</h1>
-    <small class="dont-index">Source: <a href="https://github.com/pachadotdev/capybara/blob/HEAD/R/kendall_correlation.R" class="external-link"><code>R/kendall_correlation.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/pachadotdev/kendallknight/blob/HEAD/R/kendall_correlation.R" class="external-link"><code>R/kendall_correlation.R</code></a></small>
     <div class="hidden name"><code>kendall_cor_test.Rd</code></div>
     </div>
 
@@ -67,7 +67,12 @@ is less than 50. For larger samples, it uses an approximation as in base R.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">kendall_cor_test</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"greater"</span>, <span class="st">"less"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">kendall_cor_test</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"greater"</span>, <span class="st">"less"</span><span class="op">)</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -85,6 +90,11 @@ is less than 50. For larger samples, it uses an approximation as in base R.</p>
 <dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis.
 The possible values are <code>"two.sided"</code>, <code>"greater"</code>, and <code>"less"</code>.</p></dd>
+
+
+<dt id="arg-conf-level">conf.level<a class="anchor" aria-label="anchor" href="#arg-conf-level"></a></dt>
+<dd><p>confidence level for the returned confidence interval.
+Must be a single number between 0 and 1. Default is 0.95.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -117,14 +127,14 @@ Journal of Computational Statistics 20, 51-62.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">kendall_cor_test</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $statistic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $p_value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Kendall's rank correlation tau</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $alternative</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "alternative hypothesis: true tau is not equal to 0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  x and y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tau = 0.33333, p-value = 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true tau is not equal to 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -0.9176818  1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

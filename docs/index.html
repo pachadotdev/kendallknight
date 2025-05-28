@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">kendallknight</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
@@ -67,7 +67,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/pachadotdev/capybara/" class="external-link">
+  <a href="https://github.com/pachadotdev/kendallknight/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
 
   </a>
@@ -84,7 +84,6 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
 <div class="section level1">
 <div class="page-header"><h1 id="kendallknight-">kendallknight <img src="reference/figures/logo.svg" align="right" height="139" alt=""><a class="anchor" aria-label="anchor" href="#kendallknight-"></a>
 </h1></div>
@@ -108,154 +107,14 @@
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>See the documentation: <a href="https://pacha.dev/kendallknight/" class="external-link uri">https://pacha.dev/kendallknight/</a>.</p>
+<p>See the documentation and vignette: <a href="https://pacha.dev/kendallknight/" class="external-link uri">https://pacha.dev/kendallknight/</a>.</p>
 </div>
-</div>
-<div class="section level1">
-<h1 id="benchmarks">Benchmarks<a class="anchor" aria-label="anchor" href="#benchmarks"></a>
-</h1>
-<p>We tested the <code>kendallknight</code> package against the base R implementation of the Kendall correlation using the <code>cor</code> function with <code>method = "kendall"</code> for randomly generated vectors of different lengths. The results are shown in the following table:</p>
-<table style="width:100%;" class="table">
-<colgroup>
-<col width="30%">
-<col width="39%">
-<col width="30%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">Number of observations</th>
-<th align="right">kendallknight median time (s)</th>
-<th align="right">base R median time (s)</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">10,000</td>
-<td align="right">0.003</td>
-<td align="right">1.251</td>
-</tr>
-<tr class="even">
-<td align="left">20,000</td>
-<td align="right">0.010</td>
-<td align="right">5.313</td>
-</tr>
-<tr class="odd">
-<td align="left">30,000</td>
-<td align="right">0.011</td>
-<td align="right">11.002</td>
-</tr>
-<tr class="even">
-<td align="left">40,000</td>
-<td align="right">0.014</td>
-<td align="right">19.578</td>
-</tr>
-<tr class="odd">
-<td align="left">50,000</td>
-<td align="right">0.017</td>
-<td align="right">30.509</td>
-</tr>
-<tr class="even">
-<td align="left">60,000</td>
-<td align="right">0.021</td>
-<td align="right">43.670</td>
-</tr>
-<tr class="odd">
-<td align="left">70,000</td>
-<td align="right">0.024</td>
-<td align="right">61.310</td>
-</tr>
-<tr class="even">
-<td align="left">80,000</td>
-<td align="right">0.029</td>
-<td align="right">77.993</td>
-</tr>
-<tr class="odd">
-<td align="left">90,000</td>
-<td align="right">0.031</td>
-<td align="right">98.614</td>
-</tr>
-<tr class="even">
-<td align="left">100,000</td>
-<td align="right">0.035</td>
-<td align="right">121.552</td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col width="25%">
-<col width="41%">
-<col width="33%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">Number of observations</th>
-<th align="right">kendallknight memory allocation (MB)</th>
-<th align="right">base R memory allocation (MB)</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">10,000</td>
-<td align="right">1.257</td>
-<td align="right">0.812</td>
-</tr>
-<tr class="even">
-<td align="left">20,000</td>
-<td align="right">2.061</td>
-<td align="right">1.450</td>
-</tr>
-<tr class="odd">
-<td align="left">30,000</td>
-<td align="right">3.091</td>
-<td align="right">2.175</td>
-</tr>
-<tr class="even">
-<td align="left">40,000</td>
-<td align="right">4.121</td>
-<td align="right">2.900</td>
-</tr>
-<tr class="odd">
-<td align="left">50,000</td>
-<td align="right">5.151</td>
-<td align="right">3.625</td>
-</tr>
-<tr class="even">
-<td align="left">60,000</td>
-<td align="right">6.181</td>
-<td align="right">4.350</td>
-</tr>
-<tr class="odd">
-<td align="left">70,000</td>
-<td align="right">7.211</td>
-<td align="right">5.074</td>
-</tr>
-<tr class="even">
-<td align="left">80,000</td>
-<td align="right">8.241</td>
-<td align="right">5.799</td>
-</tr>
-<tr class="odd">
-<td align="left">90,000</td>
-<td align="right">9.271</td>
-<td align="right">6.524</td>
-</tr>
-<tr class="even">
-<td align="left">100,000</td>
-<td align="right">10.301</td>
-<td align="right">7.249</td>
-</tr>
-</tbody>
-</table>
-<p>In order to avoid distorted results, we used the <code>bench</code> package to run the benchmarking tests in a clean R session and in the Niagara supercomputer cluster that, unlike personal computers, will not distort the test results due to other processes running in the background (e.g., such as automatic updates).</p>
-</div>
-<div class="section level1">
-<h1 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
-</h1>
-<p>The package uses <code>testthat</code> for testing [@wickham2011]. The included tests are exhaustive and covered the complete code to check for correctness comparing with the base R implementation, checking corner cases, and forcing errors by passing unusable input data to the user-visible functions.</p>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
 <p>Please note that the kendallknight project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -263,8 +122,8 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=kendallknight" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/pachadotdev/capybara/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/pachadotdev/capybara/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/pachadotdev/kendallknight/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/pachadotdev/kendallknight/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 

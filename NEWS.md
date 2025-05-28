@@ -1,3 +1,9 @@
+# kendallknight 0.7.0
+
+* Replaces the example dataset with one based on real data.
+* Adds confidence intervals to correlation tests and allows different confidence
+  levels.
+
 # kendallknight 0.6.0
 
 * Uses "htest" S3 class for the p-value print method. This is a minor change

@@ -4,7 +4,12 @@
 \alias{kendall_cor_test}
 \title{Kendall Correlation Test}
 \usage{
-kendall_cor_test(x, y, alternative = c("two.sided", "greater", "less"))
+kendall_cor_test(
+  x,
+  y,
+  alternative = c("two.sided", "greater", "less"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{x}{a numeric vector.}
@@ -13,6 +18,9 @@ kendall_cor_test(x, y, alternative = c("two.sided", "greater", "less"))
 
 \item{alternative}{a character string specifying the alternative hypothesis.
 The possible values are \code{"two.sided"}, \code{"greater"}, and \code{"less"}.}
+
+\item{conf.level}{confidence level for the returned confidence interval.
+Must be a single number between 0 and 1. Default is 0.95.}
 }
 \value{
 A list with the following components:

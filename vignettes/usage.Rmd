@@ -23,13 +23,13 @@ Following the example from
 consider the following data for life expectancy in years and cigarettes per day:
 
 ```{r}
-cigarettes
+arcade
 ```
 
 The Kendall's correlation coefficient is computed as follows:
 
 ```{r}
-kendall_cor(cigarettes$life_expectancy, cigarettes$cigarettes_per_day)
+kendall_cor(arcade$doctorates, arcade$revenue)
 ```
 
 The obtained value reveals there is a negative correlation between life
@@ -42,8 +42,8 @@ by using a two-tailed test with following code:
 ```{r}
 # two.sided is the default argument
 kendall_cor_test(
-  cigarettes$life_expectancy,
-  cigarettes$cigarettes_per_day,
+  arcade$doctorates,
+  arcade$revenue,
   alternative = "two.sided"
 )
 ```
@@ -57,8 +57,8 @@ $H_1:\: \tau < 0$ by using a one-tailed test with following code:
 
 ```{r}
 kendall_cor_test(
-  cigarettes$life_expectancy,
-  cigarettes$cigarettes_per_day,
+  arcade$doctorates,
+  arcade$revenue,
   alternative = "less"
 )
 ```
@@ -72,8 +72,8 @@ $H_1:\: \tau > 0$ by using a one-tailed test with following code:
 
 ```{r}
 kendall_cor_test(
-  cigarettes$life_expectancy,
-  cigarettes$cigarettes_per_day,
+  arcade$doctorates,
+  arcade$revenue,
   alternative = "greater"
 )
 ```

@@ -15,4 +15,4 @@
 ^CODE_OF_CONDUCT\.md$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
-inst/arxiv_preprint
+inst/plos

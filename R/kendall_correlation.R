@@ -109,6 +109,8 @@ kendall_cor <- function(x, y = NULL) {
 #' @param y a numeric vector.
 #' @param alternative a character string specifying the alternative hypothesis.
 #'  The possible values are `"two.sided"`, `"greater"`, and `"less"`.
+#' @param conf.level confidence level for the returned confidence interval.
+#'  Must be a single number between 0 and 1. Default is 0.95.
 #' 
 #' @return A list with the following components:
 #' \item{statistic}{The Kendall correlation coefficient.}
@@ -133,8 +135,15 @@ kendall_cor <- function(x, y = NULL) {
 #' kendall_cor_test(x, y)
 #' 
 #' @export
-kendall_cor_test <- function(x, y, alternative = c("two.sided", "greater", "less")) {
+kendall_cor_test <- function(x, y,
+  alternative = c("two.sided", "greater", "less"),
+  conf.level = 0.95) {
   alternative <- match.arg(alternative)
+
+  if (!is.numeric(conf.level) || length(conf.level) != 1 ||
+    conf.level <= 0 || conf.level >= 1) {
+    stop("'conf.level' must be a single number between 0 and 1")
+  }
 
   x2 <- NA
   y2 <- NA
@@ -147,6 +156,19 @@ kendall_cor_test <- function(x, y, alternative = c("two.sided", "greater", "less
 
   r <- kendall_cor_(x2, y2)
   n <- length(x2) # Ensure n is correctly assigned
+
+  xties <- table(x[duplicated(x)]) + 1
+  yties <- table(y[duplicated(y)]) + 1
+  T0 <- n * (n - 1) / 2
+  T1 <- sum(xties * (xties - 1)) / 2
+  T2 <- sum(yties * (yties - 1)) / 2
+  v0 <- n * (n - 1) * (2 * n + 5)
+  vt <- sum(xties * (xties - 1) * (2 * xties + 5))
+  vu <- sum(yties * (yties - 1) * (2 * yties + 5))
+  v1 <- sum(xties * (xties - 1)) * sum(yties * (yties - 1))
+  v2 <- sum(xties * (xties - 1) * (xties - 2)) * sum(yties * (yties - 2))
+  var_S <- (v0 - vt - vu) / 18 + v1 / (2 * n * (n - 1)) + v2 / (9 * n * (n - 1) * (n - 2))
+  se <- sqrt(var_S) / sqrt((T0 - T1) * (T0 - T2))
 
   if (n < 50) {
     q <- round((r + 1) * n * (n - 1) / 4)
@@ -163,17 +185,6 @@ kendall_cor_test <- function(x, y, alternative = c("two.sided", "greater", "less
       "less" = pkendall_(q, n)
     )
   } else {
-    xties <- table(x[duplicated(x)]) + 1
-    yties <- table(y[duplicated(y)]) + 1
-    T0 <- n * (n - 1) / 2
-    T1 <- sum(xties * (xties - 1)) / 2
-    T2 <- sum(yties * (yties - 1)) / 2
-    v0 <- n * (n - 1) * (2 * n + 5)
-    vt <- sum(xties * (xties - 1) * (2 * xties + 5))
-    vu <- sum(yties * (yties - 1) * (2 * yties + 5))
-    v1 <- sum(xties * (xties - 1)) * sum(yties * (yties - 1))
-    v2 <- sum(xties * (xties - 1) * (xties - 2)) * sum(yties * (yties - 2))
-    var_S <- (v0 - vt - vu) / 18 + v1 / (2 * n * (n - 1)) + v2 / (9 * n * (n - 1) * (n - 2))
     S <- r * sqrt((T0 - T1) * (T0 - T2)) / sqrt(var_S)
     pv <- switch(alternative,
       "two.sided" = 2 * min(pnorm(S), pnorm(S, lower.tail = FALSE)),
@@ -181,6 +192,16 @@ kendall_cor_test <- function(x, y, alternative = c("two.sided", "greater", "less
       "less" = pnorm(S)
     )
   }
+
+  z <- qnorm((1 + conf.level) / 2)
+
+  ci <- switch(alternative,
+    "two.sided" = c(max(-1, r - z * se), min(1, r + z * se)),
+    "greater" = c(max(-1, r - z * se), 1),
+    "less" = c(-1, min(1, r + z * se))
+  )
+
+  attr(ci, "conf.level") <- conf.level
 
   alt <- switch(alternative,
     "two.sided" = "true tau is not equal to 0",
@@ -191,6 +212,7 @@ kendall_cor_test <- function(x, y, alternative = c("two.sided", "greater", "less
   result <- list(
     statistic = c(tau = r),
     p.value = pv,
+    conf.int = ci,
     alternative = alt,
     method = "Kendall's rank correlation tau",
     data.name = paste(deparse(substitute(x)), "and", deparse(substitute(y)))
@@ -198,11 +220,8 @@ kendall_cor_test <- function(x, y, alternative = c("two.sided", "greater", "less
   class(result) <- "htest"
   return(result)
 }
-# Internals ----
 
-# stop_unidimensional <- function(v) {
-#   stop(paste(v, "must be a uni-dimensional vector or coercible to a vector"))
-# }
+# Internals ----
 
 warn_variance <- function(v) {
   res <- all.equal(var(v), 0, check.class = FALSE)
@@ -213,14 +232,6 @@ warn_variance <- function(v) {
   }
   TRUE
 }
-
-# as_double <- function(x) {
-#   if (storage.mode(x) != "double") {
-#     storage.mode(x) <- "double"
-#   }
-
-#   x
-# }
 
 check_data_ <- function(x,y) {
   if (is.matrix(x)) {
@@ -252,9 +263,9 @@ check_data_ <- function(x,y) {
   ok <- complete.cases(x, y)
   x <- rank(x[ok])
   y <- rank(y[ok])
-  
+
   n <- length(x)
-  
+
   if (n < 2) {
     stop("x and y must have at least 2 non-null observations")
   }

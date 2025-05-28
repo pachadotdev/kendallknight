@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kendallknight</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
@@ -65,7 +65,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/pachadotdev/capybara/" class="external-link">
+  <a href="https://github.com/pachadotdev/kendallknight/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
 
   </a>
@@ -86,7 +86,7 @@
       <h1 data-toc-skip>Basic ‘kendallknight’ usage</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pachadotdev/capybara/blob/HEAD/vignettes/usage.Rmd" class="external-link"><code>vignettes/usage.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pachadotdev/kendallknight/blob/HEAD/vignettes/usage.Rmd" class="external-link"><code>vignettes/usage.Rmd</code></a></small>
       <div class="hidden name"><code>usage.Rmd</code></div>
 
     </div>
@@ -98,76 +98,71 @@
 </h2>
 <p>Following the example from <a href="https://real-statistics.com/correlation/kendalls-tau-correlation/kendalls-correlation-testing-with-ties/" class="external-link">Real Statistics Using Excel</a>, consider the following data for life expectancy in years and cigarettes per day:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cigarettes</span></span>
-<span><span class="co">#&gt;    life_expectancy cigarettes_per_day</span></span>
-<span><span class="co">#&gt; 1               78                  4</span></span>
-<span><span class="co">#&gt; 2               78                 23</span></span>
-<span><span class="co">#&gt; 3               60                 25</span></span>
-<span><span class="co">#&gt; 4               53                 48</span></span>
-<span><span class="co">#&gt; 5               85                 17</span></span>
-<span><span class="co">#&gt; 6               84                  8</span></span>
-<span><span class="co">#&gt; 7               73                  4</span></span>
-<span><span class="co">#&gt; 8               78                 26</span></span>
-<span><span class="co">#&gt; 9               78                 23</span></span>
-<span><span class="co">#&gt; 10              75                 19</span></span>
-<span><span class="co">#&gt; 11              65                 24</span></span>
-<span><span class="co">#&gt; 12              72                 35</span></span>
-<span><span class="co">#&gt; 13              58                 29</span></span>
-<span><span class="co">#&gt; 14              92                  4</span></span>
-<span><span class="co">#&gt; 15              65                 14</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">arcade</span></span>
+<span><span class="co">#&gt;    year doctorates revenue</span></span>
+<span><span class="co">#&gt; 1  2000        861   1.196</span></span>
+<span><span class="co">#&gt; 2  2001        830   1.176</span></span>
+<span><span class="co">#&gt; 3  2002        809   1.269</span></span>
+<span><span class="co">#&gt; 4  2003        867   1.240</span></span>
+<span><span class="co">#&gt; 5  2004        948   1.307</span></span>
+<span><span class="co">#&gt; 6  2005       1129   1.435</span></span>
+<span><span class="co">#&gt; 7  2006       1453   1.601</span></span>
+<span><span class="co">#&gt; 8  2007       1656   1.654</span></span>
+<span><span class="co">#&gt; 9  2008       1787   1.803</span></span>
+<span><span class="co">#&gt; 10 2009       1611   1.734</span></span></code></pre></div>
 <p>The Kendall’s correlation coefficient is computed as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/kendall_cor.html">kendall_cor</a></span><span class="op">(</span><span class="va">cigarettes</span><span class="op">$</span><span class="va">life_expectancy</span>, <span class="va">cigarettes</span><span class="op">$</span><span class="va">cigarettes_per_day</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] -0.4925183</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/kendall_cor.html">kendall_cor</a></span><span class="op">(</span><span class="va">arcade</span><span class="op">$</span><span class="va">doctorates</span>, <span class="va">arcade</span><span class="op">$</span><span class="va">revenue</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.8222222</span></span></code></pre></div>
 <p>The obtained value reveals there is a negative correlation between life expectancy and cigarettes per day. Furthermore, it is of interest to test the null hypothesis that the correlation is zero.</p>
 <p>It is possible to test the hypothesis <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mspace width="0.222em"></mspace><mi>τ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0:\: \tau = 0</annotation></semantics></math> versus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mspace width="0.222em"></mspace><mi>τ</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_1:\: \tau \neq 0</annotation></semantics></math> by using a two-tailed test with following code:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># two.sided is the default argument</span></span>
 <span><span class="fu"><a href="../reference/kendall_cor_test.html">kendall_cor_test</a></span><span class="op">(</span></span>
-<span>  <span class="va">cigarettes</span><span class="op">$</span><span class="va">life_expectancy</span>,</span>
-<span>  <span class="va">cigarettes</span><span class="op">$</span><span class="va">cigarettes_per_day</span>,</span>
+<span>  <span class="va">arcade</span><span class="op">$</span><span class="va">doctorates</span>,</span>
+<span>  <span class="va">arcade</span><span class="op">$</span><span class="va">revenue</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; $statistic</span></span>
-<span><span class="co">#&gt; [1] -0.4925183</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $p_value</span></span>
-<span><span class="co">#&gt; [1] 0.01140992</span></span>
+<span><span class="co">#&gt;  Kendall's rank correlation tau</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $alternative</span></span>
-<span><span class="co">#&gt; [1] "alternative hypothesis: true tau is not equal to 0"</span></span></code></pre></div>
+<span><span class="co">#&gt; data:  arcade$doctorates and arcade$revenue</span></span>
+<span><span class="co">#&gt; tau = 0.82222, p-value = 0.0003577</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true tau is not equal to 0</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  0.3352653 1.0000000</span></span></code></pre></div>
 <p>Based on the obtained p-value and a significance level of 0.05, the null hypothesis is rejected. Therefore, there is evidence to suggest that the correlation is not zero.</p>
 <p>It is also possible to test the hypothesis <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mspace width="0.222em"></mspace><mi>τ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0:\: \tau = 0</annotation></semantics></math> versus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mspace width="0.222em"></mspace><mi>τ</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_1:\: \tau &lt; 0</annotation></semantics></math> by using a one-tailed test with following code:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/kendall_cor_test.html">kendall_cor_test</a></span><span class="op">(</span></span>
-<span>  <span class="va">cigarettes</span><span class="op">$</span><span class="va">life_expectancy</span>,</span>
-<span>  <span class="va">cigarettes</span><span class="op">$</span><span class="va">cigarettes_per_day</span>,</span>
+<span>  <span class="va">arcade</span><span class="op">$</span><span class="va">doctorates</span>,</span>
+<span>  <span class="va">arcade</span><span class="op">$</span><span class="va">revenue</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"less"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; $statistic</span></span>
-<span><span class="co">#&gt; [1] -0.4925183</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $p_value</span></span>
-<span><span class="co">#&gt; [1] 0.005704958</span></span>
+<span><span class="co">#&gt;  Kendall's rank correlation tau</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $alternative</span></span>
-<span><span class="co">#&gt; [1] "alternative hypothesis: true tau is less than 0"</span></span></code></pre></div>
+<span><span class="co">#&gt; data:  arcade$doctorates and arcade$revenue</span></span>
+<span><span class="co">#&gt; tau = 0.82222, p-value = 0.9999</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true tau is less than 0</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  -1  1</span></span></code></pre></div>
 <p>Based on the obtained p-value and a significance level of 0.05, the null hypothesis is rejected. Therefore, there is evidence to suggest that the correlation is negative.</p>
 <p>It is also possible to test the hypothesis <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mspace width="0.222em"></mspace><mi>τ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0:\: \tau = 0</annotation></semantics></math> versus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mspace width="0.222em"></mspace><mi>τ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_1:\: \tau &gt; 0</annotation></semantics></math> by using a one-tailed test with following code:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/kendall_cor_test.html">kendall_cor_test</a></span><span class="op">(</span></span>
-<span>  <span class="va">cigarettes</span><span class="op">$</span><span class="va">life_expectancy</span>,</span>
-<span>  <span class="va">cigarettes</span><span class="op">$</span><span class="va">cigarettes_per_day</span>,</span>
+<span>  <span class="va">arcade</span><span class="op">$</span><span class="va">doctorates</span>,</span>
+<span>  <span class="va">arcade</span><span class="op">$</span><span class="va">revenue</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; $statistic</span></span>
-<span><span class="co">#&gt; [1] -0.4925183</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $p_value</span></span>
-<span><span class="co">#&gt; [1] 0.995865</span></span>
+<span><span class="co">#&gt;  Kendall's rank correlation tau</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $alternative</span></span>
-<span><span class="co">#&gt; [1] "alternative hypothesis: true tau is greater than 0"</span></span></code></pre></div>
+<span><span class="co">#&gt; data:  arcade$doctorates and arcade$revenue</span></span>
+<span><span class="co">#&gt; tau = 0.82222, p-value = 0.0001788</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true tau is greater than 0</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  0.3352653 1.0000000</span></span></code></pre></div>
 <p>Based on the obtained p-value and a significance level of 0.05, the null hypothesis is not rejected. Therefore, there is no evidence to suggest that the correlation is positive.</p>
 </div>
   </div>

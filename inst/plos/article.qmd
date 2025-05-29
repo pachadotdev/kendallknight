@@ -12,8 +12,8 @@ format:
         % Remove comment for double spacing
         % \usepackage{setspace} 
         % \doublespacing
-        \usepackage{tikz}
-        \usetikzlibrary{arrows.meta, positioning, fit}
+        % \usepackage{tikz}
+        % \usetikzlibrary{arrows.meta, positioning, fit}
 author:
   - name: Mauricio Vargas Sepulveda
     equal-contributor: true
@@ -240,10 +240,21 @@ section, the `kendall_cor()` and `kendall_cor_test()` functions, these depend on
 internal functions to compute the Kendall's correlation coefficient and the
 $p$-value of the test efficiently, which required to port some R methods
 implemented in C to C++ to avoid the overhead of copying data between the two
-languages multiple times. The following diagram shows the data flow in the
+languages multiple times. @fig-workflow shows the data flow in the
 package:
 
-**Fig 1. Workflow diagram showing the data flow in the kendallknight package.**
+::: {#fig-workflow}
+\begin{center}
+\fbox{\begin{minipage}{0.8\textwidth}
+\centering
+\vspace{2cm}
+Placeholder for Figure 1.
+\vspace{2cm}
+\end{minipage}}
+\end{center}
+
+Workflow diagram showing the data flow in the kendallknight package. Source: own creation.
+:::
 
 The `check_data()` function ensures that the input vectors (or matrices) $x$ and
 $y$ are suitable for analysis by performing several checks and preparations. It
@@ -437,11 +448,14 @@ psr <- (cor(data8694$trade, fit$fitted.values, method = "kendall"))^2
 psr2 <- (kendall_cor(data8694$trade, fit$fitted.values))^2
 ```
 
-The percentages in Table 2 reveal that base R implementation takes around 50%
+The percentages in @tbl-rsq reveal that base R implementation takes around 50%
 of the time required to fit the model to compute the pseudo-$R^2$ statistic,
 while the `kendallknight` implementation takes only 1% of the model time.
 
 ```{r econometric2, message = FALSE, warning = FALSE, echo = FALSE}
+#| label: tbl-rsq
+#| tbl-cap: "Computation time for the model coefficients and the pseudo-$R^2$ statistic. Source: own creation."
+
 res <- readRDS("data/rsq2.rds")
 tmodel <- res$tmodel
 tpsr <- res$tpsr
@@ -450,8 +464,6 @@ tpsr2 <- res$tpsr2
 # 100 * tpsr / tmodel
 # 100 * tpsr2 / tmodel
 
-# put on a table instead
-
 # transposed table
 knitr::kable(
   data.frame(
@@ -459,8 +471,7 @@ knitr::kable(
     time = c(paste0(round(tmodel, 2), "s"), paste0(round(tpsr, 2), "s"), paste0(round(tpsr2, 2), "s")),
     rel = c("", paste0(round(100 * tpsr / tmodel, 2), "%"), paste0(round(100 * tpsr2 / tmodel, 2), "%"))
   ),
-  caption = "Computation time for the model coefficients and the pseudo-$R^2$ statistic. Source: own creation.",
-  align = c("l","r","r"),
+  align = c("l", "r", "r"),
   col.names = c("Operation", "Time", "Pseudo $R^2$ / Model fitting")
 )
 ```

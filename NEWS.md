@@ -1,3 +1,7 @@
+# kendallknight 1.0.0
+
+* New vignette and link to published article.
+
 # kendallknight 0.7.0
 
 * Replaces the example dataset with one based on real data.

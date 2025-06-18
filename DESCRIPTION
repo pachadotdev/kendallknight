@@ -1,7 +1,7 @@
 Package: kendallknight
 Type: Package
 Title: Efficient Implementation of Kendall's Correlation Coefficient Computation
-Version: 0.7.0
+Version: 1.0.0
 Authors@R: c(
     person(
         given = "Mauricio",
@@ -41,7 +41,7 @@ Description: The computational complexity of the implemented algorithm for
     Christensen (2005) <doi:10.1007/BF02736122> and
     Emara (2024) <https://learningcpp.org/>.
     This implementation is described in
-    Vargas Sepulveda (2024) <doi:10.48550/arXiv.2408.09618>.
+    Vargas Sepulveda (2025) <doi:10.1371/journal.pone.0326090>.
 License: Apache License (>= 2)
 BugReports: https://github.com/pachadotdev/kendallknight/issues
 URL: https://pacha.dev/kendallknight/, https://github.com/pachadotdev/kendallknight

@@ -1,0 +1,26 @@
+Dear Editors,
+
+Please consider my manuscript presenting the kendallknight package, an efficient
+implementation of Kendall's correlation coefficient tailored for computationally
+intensive cases. It is of my interest to publish with Plos ONE because of its
+open access policy.
+
+My approach builds upon Knight's (1966) algorithm and subsequent literature,
+significantly reducing computational complexity and achieving substantial speed
+improvements over the Base R implementation.
+
+The kendallknight package is especially beneficial for econometricians and
+statisticians who require rapid and accurate computations of Kendall's
+correlation and who use R. My benchmarks demonstrate notable performance gains
+without compromising accuracy, and effectively handling edge cases.
+
+I believe this contribution, which starts from rethinking correlation computation,
+aligns well with the general scope of Plos ONE, offering practical improvements
+for statistical computing.
+
+Thank you for considering our submission.
+
+Best regards,
+
+MVS
+

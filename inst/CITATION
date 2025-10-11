@@ -1,0 +1,10 @@
+bibentry(
+  "Article",
+  title = "Kendallknight: An R package for efficient implementation of Kendall’s correlation coefficient computation",
+  author = "Mauricio Vargas Sepulveda",
+  year = 2025,
+  journal = "PLOS One",
+  volume = 20,
+  pages = "e0326090",
+  doi = "10.1371/journal.pone.0326090"
+)

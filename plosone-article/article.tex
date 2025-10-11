@@ -1,0 +1,1128 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+
+
+\PassOptionsToPackage{table}{xcolor}
+
+\documentclass[
+  10pt,
+  letterpaper,
+]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+% Use adjustwidth environment to exceed column width (see example table in text)
+\usepackage{changepage}
+
+% marvosym package for additional characters
+\usepackage{marvosym}
+
+% cite package, to clean up citations in the main text. Do not remove.
+% Using natbib instead
+% \usepackage{cite}
+
+% Use nameref to cite supporting information files (see Supporting Information section for more info)
+\usepackage{nameref,hyperref}
+
+% line numbers
+\usepackage[right]{lineno}
+
+% ligatures disabled
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% create "+" rule type for thick vertical lines
+\newcolumntype{+}{!{\vrule width 2pt}}
+
+% create \thickcline for thick horizontal lines of variable length
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+% \thickhline command for thick horizontal lines that span the table
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
+% Text layout
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in 
+\textheight 8.75in
+
+% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
+% Captions will be left justified
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+% Header and Footer with logo
+\usepackage{lastpage,fancyhdr}
+\usepackage{epstopdf}
+%\pagestyle{myheadings}
+\pagestyle{fancy}
+\fancyhf{}
+%\setlength{\headheight}{27.023pt}
+%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\today}
+% Remove comment for double spacing
+% \usepackage{setspace}
+% \doublespacing
+% \usepackage{tikz}
+% \usetikzlibrary{arrows.meta, positioning, fit}
+% \usepackage[draft]{pgf}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Kendallknight: An R Package for Efficient Implementation of Kendall's Correlation Coefficient Computation},
+  pdfauthor={Mauricio Vargas Sepulveda},
+  pdfkeywords={Kendall's correlation coefficient, binary trees, time
+complexity, R, C++},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+
+
+\begin{document}
+\vspace*{0.2in}
+
+% Title must be 250 characters or less.
+\begin{flushleft}
+{\Large
+\textbf\newline{Kendallknight: An R Package for Efficient Implementation
+of Kendall's Correlation Coefficient
+Computation} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+}
+\newline
+\\
+% Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
+Mauricio Vargas Sepulveda\textsuperscript{1,2\Yinyang*}
+\\
+\bigskip
+\textbf{1} Munk School of Global Affairs and Public Policy, University
+of Toronto, Toronto, Ontario, Canada, \\ \textbf{2} Department of
+Political Science, University of Toronto, Toronto, Ontario, Canada, 
+\bigskip
+
+% Insert additional author notes using the symbols described below. Insert symbol callouts after author names as necessary.
+% 
+% Remove or comment out the author notes below if they aren't used.
+%
+% Primary Equal Contribution Note
+\Yinyang These authors contributed equally to this work.
+
+% Additional Equal Contribution Note
+% Also use this double-dagger symbol for special authorship notes, such as senior authorship.
+%\ddag These authors also contributed equally to this work.
+
+% Current address notes
+\textcurrency Current Address: Dept/Program/Center, Institution Name, City, State, Country % change symbol to "\textcurrency a" if more than one current address note
+% \textcurrency b Insert second current address 
+% \textcurrency c Insert third current address
+
+% Deceased author note
+\dag Deceased
+
+% Group/Consortium Author Note
+\textpilcrow Membership list can be found in the Acknowledgments section.
+
+% Use the asterisk to denote corresponding authorship and provide email address in note below.
+* m.sepulveda@mail.utoronto.ca
+
+\end{flushleft}
+
+\section*{Abstract}
+The kendallknight package introduces an efficient implementation of
+Kendall's correlation coefficient computation, significantly improving
+the processing time for large datasets without sacrificing accuracy. The
+kendallknight package, following Knight (1966) and posterior literature,
+reduces the time complexity resulting in drastic reductions in
+computation time, transforming operations that would take minutes or
+hours into milliseconds or minutes, while maintaining precision and
+correctly handling edge cases and errors. The package is particularly
+advantageous in econometric and statistical contexts where rapid and
+accurate calculation of Kendall's correlation coefficient is desirable.
+Benchmarks demonstrate substantial performance gains over the Base R
+implementation, especially for large datasets.
+
+
+\linenumbers
+
+\subsection{Introduction}\label{introduction}
+
+Kendall's correlation coefficient is a non-parametric measure of
+association between two variables. It is particularly useful when the
+relationship is monotonic but not necessarily linear, and when data
+include outliers or ordinal scales.
+
+The implementation in base R has a time complexity of \(O(n^2)\), which
+becomes slow for large datasets {[}1{]}. This can introduce bottlenecks
+when using econometrics or machine learning methods in fields such as
+genomics or finance, where datasets commonly contain thousands of
+observations.
+
+Similar to Pearson's correlation, Kendall's implementation in base R
+uses a multi-threaded implementations and, as the benchmarks reveal, the
+computational complexity still constitutes a bottleneck even with
+top-of-the line hardware. Alternative implementations, such as Python's
+SciPy have a computational complexity of \(O(n \ln(n))\) that scale well
+with non-trivial missing data patterns, ties, or corner cases.
+
+To address this, we implemented a high-performance version of Kendall's
+\(\tau\) in the \texttt{kendallknight} R package using C++, building on
+the algorithm introduced by Knight {[}2{]}, refined in subsequent work
+{[}3,4{]}, and following programming principles from {[}5{]}. Our
+approach achieves \(O(n \ln(n))\) time complexity, which represents a
+substantial reduction in computational cost. For example, with \$n =
+20,000\$ observations, an \(O(n^2)\) method requires roughly 400 million
+pairwise comparisons, while our implementation completes in under
+200,000 operations.
+
+This efficiency gain translates into practical improvements: in
+benchmark tests on real-world datasets, we observe reductions in
+execution time of several minutes of over \(10,000\%\), without loss of
+precision or robustness. We also include comprehensive unit tests to
+validate correctness across edge cases, including tied ranks and
+degenerate inputs.
+
+In summary, this package provides a fast, reliable, and scalable
+alternative for computing Kendall's correlation, with applications
+across fields where large-scale non-parametric correlation analysis is
+needed.
+
+\subsection{Definitions}\label{definitions}
+
+Kendall's correlation coefficient is a pairwise measure of association.
+It does not require assumptions about the distribution of the data
+(e.g., normality), and is especially appropriate for ordinal data or
+data with outliers, where linear correlation measures like Pearson's may
+be misleading. For two vectors \(x\) and \(y\) of length \(n\), it is
+defined as {[}2{]}:
+
+\begin{equation*}
+r(x,y) = \frac{c - d}{\sqrt{(c + d + e)(c + d + f)}},
+\end{equation*}
+
+where \(c\) is the number of concordant pairs, \(d\) is the number of
+discordant pairs, \(e\) is the number of ties in \(x\), and \(f\) is the
+number of ties in \(y\).
+
+The corresponding definitions for \(c\), \(d\), \(e\) and \(f\) are:
+
+\begin{eqnarray*}
+c &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_1(x_i, x_j, y_i, y_j), \\
+d &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_2(x_i, x_j, y_i, y_j), \\ 
+e &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_3(x_i, x_j) g_4(y_i, y_j), \\
+f &=& \sum_{i=1}^{n} \sum_{j \neq i}^{n} g_4(x_i, x_j) g_3(y_j, y_i).
+\end{eqnarray*}
+
+The functions \(g_1\), \(g_2\), \(g_3\) and \(g_4\) are indicators
+defined as:
+
+\begin{eqnarray*}
+g_1(x_i, x_j, y_i, y_j) &=& \begin{cases}
+  1 & \text{if } (x_i - x_j)(y_i - y_j) > 0, \\
+  0 & \text{otherwise},
+\end{cases} \\
+g_2(x_i, x_j, y_i, y_j) &=& \begin{cases}
+  1 & \text{if } (x_i - x_j)(y_i - y_j) < 0, \\
+  0 & \text{otherwise},
+\end{cases} \\
+g_3(x_i, x_j) &=& \begin{cases}
+  1 & \text{if } x_i = x_j \text{ and } y_i \neq y_j, \\
+  0 & \text{otherwise},
+\end{cases} \\
+g_4(y_i, y_j) &=& \begin{cases}
+  1 & \text{if } x_i \neq x_j \text{ and } y_i = y_j, \\
+  0 & \text{otherwise}.
+\end{cases}
+\end{eqnarray*}
+
+Kendall's coefficient reflects the difference between the number of
+concordant and discordant pairs, normalized by a correction factor to
+account for ties. The total number of comparisons is
+\(m = n(n - 1) / 2\), so a naive implementation that checks all pairs
+has a time complexity of \(O(n^2)\).
+
+When there are no ties in the data, the coefficient simplifies to:
+
+\begin{equation*}
+r(x,y) = \frac{c - d}{c + d} = 
+ \frac{c - d}{m} =
+ % \frac{2(c - d)}{n(n - 1)} = 
+ % \frac{2c}{n(n - 1)} - \frac{2d}{n(n - 1)} =
+ % \frac{2c}{n(n - 1)} - \frac{2(m - c)}{n(n - 1)} =
+ % \frac{4c}{n(n - 1)} - \frac{2m}{n(n - 1)} =
+ % \frac{4c}{n(n - 1)} - \frac{2m}{2m} =
+ \frac{4c}{n(n - 1)} - 1
+\end{equation*}
+
+Although this formula is straightforward, computing it directly is
+inefficient for large datasets. Instead, efficient implementations use
+sorting and inversion algorithms, a method borrowed from merge sort
+algorithms in binary trees, to compute \(c\) and \(d\) with time
+complexity \(O(n \ln(n))\) {[}2{]}.
+
+Unlike the Pearson's correlation coefficient, suitable for continuous
+variables and defined as \begin{equation*}
+r(x,y) = \frac{n\sum_{i=1}^n x_i y_i - \sum_{i=1}^n x_i \sum_{i=1}^n y_i}{\sqrt{(n\sum_{i=1}^n x_i^2 - (\sum_{i=1}^n x_i)^2)(n\sum_{i=1}^n y_i^2 - (\sum_{i=1}^n y_i)^2)}},
+\end{equation*} the Kendall's correlation coefficient is suitable for
+ordinal variables.
+
+While Pearson's correlation coefficient measures linear relationships
+and is sensitive to outliers, non-parametric alternatives like Kendall's
+\(\tau\) assess monotonic relationships and are more robust.
+
+Because of these properties, Kendall's correlation is often preferred in
+social sciences, bioinformatics, and ordinal regression diagnostics,
+where the goal is to detect reliable monotonic associations without
+assuming a functional form.
+
+\subsection{Implementation}\label{implementation}
+
+Using a merge sort with a binary tree with depth \(1 + \log_2(n)\)
+results in a search and insert operation with a time complexity of
+\(O(\log(n))\), resulting in a time complexity of \(O(n \log(n))\) for
+the Kendall's correlation coefficient {[}2,5{]}.
+
+To address this, \texttt{kendallknight} implements an algorithm that
+reduces the computational complexity to \(O(n \ln (n))\) by leveraging
+merge sort and a binary indexed tree (Fenwick tree). As originally
+proposed by {[}2{]}, this approach counts the number of inversions in
+the rank-transformed vector \(y\) after sorting \(x\).
+
+The \texttt{kendallknight} algorithm consists of the following
+high-level steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sort the vector \(x\) and keep track of the original indices in a
+  permutation vector.
+\item
+  Rearrange the vector \(y\) according to \(x\).
+\item
+  Compute the total pairs \(m\).
+\item
+  Compute the pairs of ties in \(x\) as \(m_x = t_x (t_x + 1) / 2\).
+\item
+  Compute the pairs of ties in \(y\) as \(m_y = t_y (t_y + 1) / 2\).
+\item
+  Compute the concordant pairs adjusted by the number of swaps in \(y\)
+  by using a merge sort as \(t = m - t_x - t_y + 2t_p\).
+\item
+  Compute the Kendall's correlation coefficient as
+  \(r(x,y) = t / (\sqrt{m - m_x} \sqrt{m - m_y})\).
+\end{enumerate}
+
+The \texttt{kendallknight} package implements these steps in C++ and
+exports the Kendall's correlation coeeficient as a function that can be
+used in R by using the \texttt{cpp11} headers {[}6{]}. Unlike existing
+implementations with \(O(n \log(n))\) complexity, this implementation
+also provides dedicated functions to test the statistical significance
+of the computed correlation, and for which it uses a C++ port of the
+Gamma function that R already implemented in C {[}1,7{]}.
+
+Below is pseudocode summarizing the core logic implemented in C++:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{function kendall\_tau(x, y):}
+\NormalTok{    n ← length(x)}
+\NormalTok{    x\_ranked ← rank(x)}
+\NormalTok{    y\_ranked ← rank(y)}
+\NormalTok{    pairs ← sort (x\_ranked}\CommentTok{[}\OtherTok{i}\CommentTok{]}\NormalTok{, y\_ranked}\CommentTok{[}\OtherTok{i}\CommentTok{]}\NormalTok{) for i in 1..n by x\_ranked}
+\NormalTok{    BIT ← empty binary indexed tree}
+\NormalTok{    discordant ← 0}
+
+\InformationTok{    for i from 1 to n:}
+\InformationTok{        y\_val ← pairs[i].y}
+\InformationTok{        discordant += BIT.query\_range(y\_val + 1, n)}
+\InformationTok{        BIT.update(y\_val)}
+
+\InformationTok{    m ← n(n {-} 1) / 2}
+\InformationTok{    concordant ← m {-} discordant}
+\InformationTok{    tie\_x ← count\_tied\_pairs(x\_ranked)}
+\InformationTok{    tie\_y ← count\_tied\_pairs(y\_ranked)}
+
+\InformationTok{    denominator ← sqrt((m {-} tie\_x) * (m {-} tie\_y))}
+\InformationTok{    tau ← (concordant {-} discordant) / denominator}
+
+\InformationTok{    return tau}
+\end{Highlighting}
+\end{Shaded}
+
+While the package provides two user-visible functions detailed in the
+next section, the \texttt{kendall\_cor()} and
+\texttt{kendall\_cor\_test()} functions, these depend on internal
+functions to compute the Kendall's correlation coefficient and the
+\(p\)-value of the test efficiently, which required to port some R
+methods implemented in C to C++ to avoid the overhead of copying data
+between the two languages multiple times. Fig~\ref{fig-workflow} shows
+the data flow in the package:
+
+\begin{figure}
+
+\centering{
+
+\begin{center}
+\fbox{\begin{minipage}{0.8\textwidth}
+\centering
+\vspace{2cm}
+Placeholder for Figure 1.
+\vspace{2cm}
+\end{minipage}}
+\end{center}
+
+}
+
+\caption{\label{fig-workflow}Workflow diagram showing the data flow in
+the kendallknight package. Source: own creation.}
+
+\end{figure}%
+
+The \texttt{check\_data()} function ensures that the input vectors (or
+matrices) \(x\) and \(y\) are suitable for analysis by performing
+several checks and preparations. It checks that the inputs have the same
+dimensions, removes missing values, ensures there are at least two
+non-null observations, and checks for zero variance. If all checks pass,
+it assigns the cleaned and ranked data to the parent environment and
+returns \texttt{TRUE}. Otherwise, it returns \texttt{FALSE} or stops
+with an error message.
+
+The \texttt{insertion\_sort()} function performs an insertion sort on an
+array of doubles (average complexity \(O(n^2)\)). It iterates through
+the array from the second-to-last element to the first, comparing each
+element with the next one and shifting elements to the right until the
+correct position for the current element is found. The function keeps
+track of the number of swaps made during the sorting process and returns
+this count. This sorting algorithm is efficient for small arrays and is
+used as a helper function in larger sorting operations.
+
+The \texttt{merge\_sort()} function performs a merge sort on an array of
+doubles (complexity \(O(n \log(n))\)). If the length of the array is
+less than 10, it uses the \texttt{insertion\_sort()} function for
+sorting, as insertion sort is more efficient for small arrays.
+Otherwise, it recursively divides the array into two halves, sorts each
+half using merge\_sort\_, and then merges the sorted halves using the
+\texttt{merge()} function. The function keeps track of the number of
+swaps made during the sorting process and returns this count. After
+merging, it copies the sorted elements back into the original array.
+
+The \texttt{merge()} function merges two sorted subarrays into a single
+sorted array (complexity \(O(n)\)). It takes two pointers, left and
+right, pointing to the beginning of each subarray, and iteratively
+compares the elements at these pointers. The smaller element is copied
+to the to array, and the corresponding pointer is advanced. This process
+continues until all elements from one subarray are copied. Any remaining
+elements from the other subarray are then copied to the to array. The
+function also keeps track of the number of swaps made during the merge
+process and returns this count.
+
+The \texttt{ties()} function calculates the number of tied pairs in a
+sorted array of doubles (complexity \(O(n)\)). It iterates through the
+array, counting ties or consecutive equal elements. When a tie sequence
+ends, it calculates the number of tied pairs as \(t_z(t_z + 1) / 2\).
+This process continues until the end of the array, ensuring all ties are
+accounted for.
+
+The \texttt{gammafn()} function computes the gamma function value for a
+given input \(x\). It handles special cases (e.g., null, zero, and
+negative values). For inputs less than or equal to ten, it uses a
+Chebyshev series evaluation to compute the gamma function. For larger
+inputs, it uses an approximation involving logarithms and exponential
+functions. The function also includes corrections for precision and
+range errors, and handles special cases for very large (or small)
+inputs. If \(x\) is positive, it returns the computed gamma value. If
+\(x\) is negative, it uses the reflection formula involving the sine
+function to compute the gamma value.
+
+The \texttt{ckendall()} function computes the Cumulative Distribution
+Function (CDF) for Kendall's correlation (or tau statistic) using
+recursion. It takes three parameters: (1) \(k\), the value of the
+statistic; (2) \(n\), the number of observations; and (3) \(w\), a
+memoization table to store intermediate results. The function first
+calculates the maximum possible value of the statistic as \(u\). If
+\(k\) is outside the valid range, it returns zero. If the value for
+\(w(n,k)\) has not been computed yet (indicated by a negative value), it
+recursively computes the CDF by summing the results of smaller
+subproblems. The results are stored in the memoization table to avoid
+redundant calculations. The function uses OpenMP (when available) for
+parallelization to speed up the computation. Finally, it returns the
+computed CDF value for the given \(k\) and \(n\).
+
+The \texttt{pkendall()} function computes the \(p\)-values for Kendall's
+correlation for a given vector of test statistics \(Q\) and the number
+of observations \(n\). It initializes a memoization table \(w\) to store
+intermediate results for the CDF calculations. For each element in
+\(Q\), it checks if the value is outside the valid range and assigns the
+corresponding \(p\)-value as zero or one. For valid values, it computes
+the CDF by summing the results of the \texttt{ckendall()} function for
+all values up to the given statistic, normalizing the result by dividing
+by the gamma function of \(n + 1\). The function uses OpenMP (if
+available) for parallelization to speed up the computation. Finally, it
+returns a vector of \(p\)-values corresponding to the input test
+statistics.
+
+The package uses \texttt{testthat} for testing {[}8{]}. The included
+tests are exhaustive and covered the complete code to check for
+correctness comparing with the Base R implementation, and also checking
+corner cases and forcing errors by passing unusable input data to the
+user-visible functions. The current tests cover 100\% of the code.
+
+\subsection{Usage}\label{usage}
+
+The \texttt{kendallknight} package is exclusively focused on the
+Kendall's correlation coefficient and provides additional functions to
+test the statistical significance of the computed correlation not
+available in other packages, which is particularly useful in econometric
+and statistical contexts.
+
+The \texttt{kendallknight} package is available on CRAN and can be
+installed using the following command:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# CRAN}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"kendallknight"}\NormalTok{)}
+
+\CommentTok{\# GitHub}
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"pachadotdev/kendallknight"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+As an illustrative exercise we can explore the question `is there a
+relationship between the number of computer science doctorates awarded
+in the United States and the total revenue generated by arcades?'
+Certainly, this question is about a numerical exercise and not about
+causal mechanisms.
+
+Table~\ref{tbl-data} can be used to illustrate the usage of the
+\texttt{kendallknight} package:
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0581}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5349}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4070}}@{}}
+
+\caption{\label{tbl-data}Computer science and arcade revenue dataset.
+Source: {[}9{]}.}
+
+\tabularnewline
+
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Computer science doctorates awarded in the US
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Total revenue generated by arcades
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+2000 & 861 & 1.196 \\
+2001 & 830 & 1.176 \\
+2002 & 809 & 1.269 \\
+2003 & 867 & 1.240 \\
+2004 & 948 & 1.307 \\
+2005 & 1129 & 1.435 \\
+2006 & 1453 & 1.601 \\
+2007 & 1656 & 1.654 \\
+2008 & 1787 & 1.803 \\
+2009 & 1611 & 1.734 \\
+
+\end{longtable}
+
+The \texttt{kendall\_cor()} function can be used to compute the
+Kendall's correlation coefficient:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(kendallknight)}
+
+\FunctionTok{kendall\_cor}\NormalTok{(arcade}\SpecialCharTok{$}\NormalTok{doctorates, arcade}\SpecialCharTok{$}\NormalTok{revenue)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.8222222
+\end{verbatim}
+
+The \texttt{kendall\_cor\_test()} function can be used to test the null
+hypothesis that the Kendall's correlation coefficient is zero:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kendall\_cor\_test}\NormalTok{(}
+\NormalTok{  arcade}\SpecialCharTok{$}\NormalTok{doctorates,}
+\NormalTok{  arcade}\SpecialCharTok{$}\NormalTok{revenue,}
+  \AttributeTok{conf.level =} \FloatTok{0.8}\NormalTok{,}
+  \AttributeTok{alternative =} \StringTok{"greater"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    Kendall's rank correlation tau
+
+data:  arcade$doctorates and arcade$revenue
+tau = 0.82222, p-value = 0.0001788
+alternative hypothesis: true tau is greater than 0
+80 percent confidence interval:
+ 0.5038182 1.0000000
+\end{verbatim}
+
+One important difference with base R implementation is that this
+implementation allows to obtain confidence intervals for different
+confidence levels (e.g., 95\%, 90\%, etc).
+
+With the obtained \(p\)-value and a significance level of 80\% (the
+default is 95\%), the null hypothesis is rejected for the two-tailed
+test (\(H_0: \tau = 0\) versus \(H_1: \neq 0\), the default option) and
+the greater than one-tailed test (\(H_0: \tau = 0\) versus
+\(H_1: \tau > 0\)) but not for the lower than one-tailed test
+(\(H_0: \tau = 0\) versus \(H_1: \tau < 0\)). This suggests the
+correlation is positive (e.g., more doctorates are associated with more
+revenue generated by arcades). In other words, these three tests tell us
+that the empirical evidence from this dataset provides three answers to
+the research questions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Is there any relationship? Yes, more doctorates are associated with
+  more revenue generated by arcades.
+\item
+  Is there a positive relationship? Yes, more doctorates are associated
+  with more revenue generated by arcades.
+\item
+  Is there a negative relationship? No, more doctorates are not
+  associated with less revenue generated by arcades.
+\end{enumerate}
+
+With base R or \texttt{Kendall}, an equivalent result can be obtained
+with the following code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor.test}\NormalTok{(arcade}\SpecialCharTok{$}\NormalTok{doctorates, arcade}\SpecialCharTok{$}\NormalTok{revenue, }\AttributeTok{method =} \StringTok{"kendall"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    Kendall's rank correlation tau
+
+data:  arcade$doctorates and arcade$revenue
+T = 41, p-value = 0.0003577
+alternative hypothesis: true tau is not equal to 0
+sample estimates:
+      tau 
+0.8222222 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Kendall}\SpecialCharTok{::}\FunctionTok{Kendall}\NormalTok{(arcade}\SpecialCharTok{$}\NormalTok{doctorates, arcade}\SpecialCharTok{$}\NormalTok{revenue)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+tau = 0.822, 2-sided pvalue =0.0012822
+\end{verbatim}
+
+In an Econometric context, the current implementation is particularly
+useful to compute the pseudo-\(R^2\) statistic defined as the squared
+Kendall correlation in the context of (Quasi) Poisson regression with
+fixed effects {[}10,11{]}. A local test reveals how the pseudo-\(R^2\)
+computation time drops from fifty to one percent of the time required to
+compute the model coefficients by using the \texttt{fepois()} function
+from the \texttt{lfe} package {[}12{]} and a dataset containing fifteen
+thousand rows {[}13{]}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tradepolicy)}
+\FunctionTok{library}\NormalTok{(lfe)}
+
+\NormalTok{data8694 }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(agtpa\_applications, year }\SpecialCharTok{\%in\%} \FunctionTok{seq}\NormalTok{(}\DecValTok{1986}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{fepois}\NormalTok{(}
+\NormalTok{  trade }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dist }\SpecialCharTok{+}\NormalTok{ cntg }\SpecialCharTok{+}\NormalTok{ lang }\SpecialCharTok{+}\NormalTok{ clny }\SpecialCharTok{+}\NormalTok{ rta }\SpecialCharTok{|}
+    \FunctionTok{as.factor}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(exporter, year)) }\SpecialCharTok{+}
+    \FunctionTok{as.factor}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(importer, year)),}
+  \AttributeTok{data =}\NormalTok{ data8694}
+\NormalTok{)}
+
+\NormalTok{psr }\OtherTok{\textless{}{-}}\NormalTok{ (}\FunctionTok{cor}\NormalTok{(data8694}\SpecialCharTok{$}\NormalTok{trade, fit}\SpecialCharTok{$}\NormalTok{fitted.values, }\AttributeTok{method =} \StringTok{"kendall"}\NormalTok{))}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\NormalTok{psr2 }\OtherTok{\textless{}{-}}\NormalTok{ (}\FunctionTok{kendall\_cor}\NormalTok{(data8694}\SpecialCharTok{$}\NormalTok{trade, fit}\SpecialCharTok{$}\NormalTok{fitted.values))}\SpecialCharTok{\^{}}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+The percentages in Table~\ref{tbl-rsq} reveal that base R implementation
+takes around 50\% of the time required to fit the model to compute the
+pseudo-\(R^2\) statistic, while the \texttt{kendallknight}
+implementation takes only 1\% of the model time.
+
+\begin{longtable}[]{@{}lrr@{}}
+
+\caption{\label{tbl-rsq}Computation time for the model coefficients and
+the pseudo-\(R^2\) statistic. Source: own creation.}
+
+\tabularnewline
+
+\toprule\noalign{}
+Operation & Time & Pseudo \(R^2\) / Model fitting \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Model fitting & 3.75s & \\
+Pseudo-\(R^2\) (base R) & 1.78s & 47.58\% \\
+Pseudo-\(R^2\) (kendallknight) & 0.02s & 0.51\% \\
+
+\end{longtable}
+
+\subsection{Benchmarks}\label{benchmarks}
+
+We tested the \texttt{kendallknight} package against the base R
+implementation of the Kendall correlation using the \texttt{cor}
+function with \texttt{method\ =\ "kendall"} for randomly generated
+vectors of different lengths, and against the \texttt{Kendall} package
+{[}14{]}. The data used for the benchmark is the trade panel available
+in {[}13{]}.
+
+We used the \texttt{bench} package to run the benchmarking tests in a
+clean R session in the \href{https://scinethpc.ca/niagara/}{Niagara
+supercomputer cluster} that, unlike personal computers, will not distort
+the test results due to other processes running in the background (e.g.,
+such as automatic updates).
+
+This cluster has the following specifications:
+
+\begin{itemize}
+\tightlist
+\item
+  Nodes: 2,024 compute nodes
+\item
+  Processors: Each node equipped with dual Intel Xeon Skylake (2.4 GHz)
+  or Cascade Lake (2.5 GHz) CPUs, totaling 40 cores per node
+\item
+  Memory: 202 GB RAM per node
+\item
+  Storage: 12.5 PB scratch space, 3.5 PB project space, and a 256 TB
+  burst buffer
+\item
+  Operating System: CentOS 7
+\end{itemize}
+
+Due to the nature of this benchmark, we used one nore (40 cores).
+
+The values on Table~\ref{tbl-speed} reveal that the
+\texttt{kendallknight} package is orders of magnitude faster than
+\texttt{Kendall} and the base R implementation for large datasets.
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2079}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3069}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2475}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2376}}@{}}
+
+\caption{\label{tbl-speed}Computation time by number of observations.
+Source: own creation.}
+
+\tabularnewline
+
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+No.~of observations
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+kendallknight median time (s)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Kendall median time (s)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Base R median time (s)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+10,000 & 0.013 & 1.0 & 4 \\
+20,000 & 0.026 & 3.9 & 16 \\
+30,000 & 0.040 & 8.7 & 36 \\
+40,000 & 0.056 & 15.6 & 64 \\
+50,000 & 0.071 & 24.2 & 100 \\
+60,000 & 0.088 & 34.8 & 144 \\
+70,000 & 0.104 & 47.5 & 196 \\
+80,000 & 0.123 & 61.9 & 256 \\
+90,000 & 0.137 & 78.2 & 324 \\
+100,000 & 0.153 & 96.4 & 399 \\
+
+\end{longtable}
+
+The values on Table~\ref{tbl-memory} show that \texttt{kendallknight}
+has a marginal memory allocation overhead compared to the base R
+implementation. The same applies to the \texttt{Kendall} package.
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1721}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3115}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2623}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2541}}@{}}
+
+\caption{\label{tbl-memory}Memory allocation by number of observations.
+Source: own creation.}
+
+\tabularnewline
+
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+No.~of observations
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+kendallknight memory allocation (MB)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Kendall memory allocation (MB)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Base R memory allocation (MB)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+10,000 & 1.2 & 1.1 & 0.89 \\
+20,000 & 2.3 & 2.1 & 1.60 \\
+30,000 & 3.5 & 3.1 & 2.40 \\
+40,000 & 4.6 & 4.2 & 3.20 \\
+50,000 & 5.8 & 5.2 & 4.00 \\
+60,000 & 7.0 & 6.2 & 4.80 \\
+70,000 & 8.1 & 7.3 & 5.60 \\
+80,000 & 9.3 & 8.3 & 6.40 \\
+90,000 & 10.4 & 9.4 & 7.20 \\
+100,000 & 11.6 & 10.4 & 8.00 \\
+
+\end{longtable}
+
+\subsection{Conclusion}\label{conclusion}
+
+The \texttt{kendallknight} package provides a fast and memory-efficient
+implementation of the Kendall's correlation coefficient with a time
+complexity of \(O(n \log(n))\), which is orders of magnitude faster than
+the base R implementation without sacrificing precision or correct
+handling of corner cases. Pearson's and Spearman's correlation
+coefficients were not considered as base R already provides efficient
+implementations of these methods.
+
+The current implementation does not leverage multi-threading or parallel
+computing for all operations, which could further enhance performance on
+multi-core systems. This is an area for future development, as the
+current implementation is already significantly faster than the base R
+implementation and the \texttt{Kendall} package.
+
+For small vectors (e.g., less than 100 observations), the time
+difference is negligible. However, for larger vectors, the difference
+can be substantial. This package is particularly useful to solve
+bottlenecks in the context of econometrics and international trade, but
+it can also be used in other fields where the Kendall's correlation
+coefficient is required.
+
+The software, documentation, and replication code are available on
+\href{https://github.com/pachadotdev/kendallknight}{GitHub}.
+
+\subsection*{References}\label{references}
+\addcontentsline{toc}{subsection}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{0}{1}
+\bibitem[\citeproctext]{ref-rstats}
+\CSLLeftMargin{1. }%
+\CSLRightInline{R Core Team. `R`: A language and environment for
+statistical computing. Vienna, Austria: {R} Foundation for Statistical
+Computing; 2024. Available: \url{https://www.R-project.org/}}
+
+\bibitem[\citeproctext]{ref-knight}
+\CSLLeftMargin{2. }%
+\CSLRightInline{Knight WR. A {Computer} {Method} for {Calculating}
+{Kendall}'s {Tau} with {Ungrouped} {Data}. Journal of the American
+Statistical Association. 1966;61: 436--439.
+doi:\href{https://doi.org/10.1080/01621459.1966.10480879}{10.1080/01621459.1966.10480879}}
+
+\bibitem[\citeproctext]{ref-abrevaya}
+\CSLLeftMargin{3. }%
+\CSLRightInline{Abrevaya J. Computation of the maximum rank correlation
+estimator. Economics Letters. 1999;62: 279--285.
+doi:\href{https://doi.org/10.1016/S0165-1765(98)00255-9}{10.1016/S0165-1765(98)00255-9}}
+
+\bibitem[\citeproctext]{ref-christensen}
+\CSLLeftMargin{4. }%
+\CSLRightInline{Christensen D. Fast algorithms for the calculation of
+{Kendall}'s \(\tau\). Computational statistics. 2005;20: 51--62.
+doi:\href{https://doi.org/10.1007/BF02736122}{10.1007/BF02736122}}
+
+\bibitem[\citeproctext]{ref-emara}
+\CSLLeftMargin{5. }%
+\CSLRightInline{Emara S. Khufu: {Object}-{Oriented} {Programming} using
+{C}++. 2024. Available: \url{https://learningcpp.org/cover.html}}
+
+\bibitem[\citeproctext]{ref-cpp11}
+\CSLLeftMargin{6. }%
+\CSLRightInline{Vaughan D, Hester J, François R. `cpp11`: A {C++}11
+interface for r's c interface. 2023. Available:
+\url{https://CRAN.R-project.org/package=cpp11}}
+
+\bibitem[\citeproctext]{ref-pcapp}
+\CSLLeftMargin{7. }%
+\CSLRightInline{Filzmoser P, Fritz H, Kalcher K. `pcaPP`: Robust PCA by
+projection pursuit. 2023. Available:
+\url{https://CRAN.R-project.org/package=pcaPP}}
+
+\bibitem[\citeproctext]{ref-wickham}
+\CSLLeftMargin{8. }%
+\CSLRightInline{Wickham H. {``Testthat''}: Get started with testing. The
+R Journal. 2011;3: 5--10. Available:
+\url{https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf}}
+
+\bibitem[\citeproctext]{ref-vigen}
+\CSLLeftMargin{9. }%
+\CSLRightInline{Vigen T. Spurious {Correlations}. New York Boston: Grand
+Central Publishing; 2015. Available:
+\url{https://www.indigo.ca/en-ca/spurious-correlations/9780316339438.html}}
+
+\bibitem[\citeproctext]{ref-santos}
+\CSLLeftMargin{10. }%
+\CSLRightInline{Silva JMCS, Tenreyro S. The {Log} of {Gravity}. The
+Review of Economics and Statistics. 2006;88: 641--658.
+doi:\href{https://doi.org/10.1162/rest.88.4.641}{10.1162/rest.88.4.641}}
+
+\bibitem[\citeproctext]{ref-sepulveda}
+\CSLLeftMargin{11. }%
+\CSLRightInline{Sepúlveda MV. Replicating {The} {Log} of {Gravity}.
+arXiv; 2024.
+doi:\href{https://doi.org/10.48550/arXiv.2409.09066}{10.48550/arXiv.2409.09066}}
+
+\bibitem[\citeproctext]{ref-gaure}
+\CSLLeftMargin{12. }%
+\CSLRightInline{Gaure S. {OLS} with multiple high dimensional category
+variables. Computational Statistics \& Data Analysis. 2013;66: 8--18.
+doi:\href{https://doi.org/10.1016/j.csda.2013.03.024}{10.1016/j.csda.2013.03.024}}
+
+\bibitem[\citeproctext]{ref-yotov}
+\CSLLeftMargin{13. }%
+\CSLRightInline{Yotov YV, Piermartini R, Monteiro J-A, Larch M. An
+{Advanced} {Guide} to {Trade} {Policy} {Analysis}: {The} {Structural}
+{Gravity} {Model}. WTO iLibrary; 2016.
+doi:\href{https://doi.org/10.30875/abc0167e-en}{10.30875/abc0167e-en}}
+
+\bibitem[\citeproctext]{ref-kendall}
+\CSLLeftMargin{14. }%
+\CSLRightInline{McLeod AI. Kendall: Kendall rank correlation and
+mann-kendall trend test. 2022. Available:
+\url{https://CRAN.R-project.org/package=Kendall}}
+
+\end{CSLReferences}
+
+
+\nolinenumbers
+
+
+\end{document}

@@ -11,7 +11,7 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 [![CRAN
 status](https://www.r-pkg.org/badges/version/kendallknight)](https://CRAN.R-project.org/package=kendallknight)
 [![Test
-coverage](https://raw.githubusercontent.com/pachadotdev/kendallknight/main/badges/coverage.svg)](https://github.com/pachadotdev/kendallknight/actions/workflows/test-coverage.yaml)
+coverage](https://raw.githubusercontent.com/pachadotdev/kendallknight/coverage/badges/coverage.svg)](https://github.com/pachadotdev/kendallknight/actions/workflows/test-coverage.yaml)
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://buymeacoffee.com/pacha)
 <!-- badges: end -->
 

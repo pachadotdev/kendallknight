@@ -22,7 +22,7 @@
         processHtmlClass: 'tex2jax_process'
       }
     };
-  </script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
 <div class="main-container">
 <div id="menu">
   <div>
@@ -39,9 +39,8 @@
 
   <div class="submenu">
     <label>Functions</label>
-    <a href="../reference/kendall_cor_test.html">kendall_cor_test</a>
     <a href="../reference/kendall_cor.html">kendall_cor</a>
-    <a href="../reference/kendallknight-package.html">kendallknight-package</a>
+    <a href="../reference/kendall_cor_test.html">kendall_cor_test</a>
   </div>
 
 
@@ -53,39 +52,37 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1>Kendall Correlation Test</h1>
-<h2>Usage</h2><pre class="ref-usage">
-kendall_cor_test(
-  x,
-  y,
-  alternative = c("two.sided", "greater", "less"),
-  conf.level = 0.95
-)
-</pre>
-<h2>Arguments</h2><table class="ref-arguments"><tr><td><strong>x</strong></td><td>a numeric vector.</td></tr><tr><td><strong>y</strong></td><td>a numeric vector.</td></tr><tr><td><strong>alternative</strong></td><td>a character string specifying the alternative hypothesis. The possible values are <code>"two.sided"</code>, <code>"greater"</code>, and <code>"less"</code>.</td></tr><tr><td><strong>conf.level</strong></td><td>confidence level for the returned confidence interval. Must be a single number between 0 and 1. Default is 0.95.</td></tr></table><h2>Value</h2><p>
-A list with the following components:
-statistic</p>{The Kendall correlation coefficient.
-p_value{The p-value of the test.}
-alternative{A character string describing the alternative hypothesis.}
-}
-<h2>Description</h2><p>
-{kendall_cor_test() calculates p-value for the the
-Kendall correlation using the exact values when the number of observations
-is less than 50. For larger samples, it uses an approximation as in base R.
-}</p>
-<h2>Examples</h2><pre><code>x &lt;- c(1, 0, 2)
+<h1></h1>
+<h2>Description</h2>
+<p> Kendall correlation using the exact values when the number of observations
+ is less than 50. For larger samples, it uses an approximation as in base R.
+
+ The possible values are <code>"two.sided"</code>, <code>"greater"</code>, and <code>"less"</code>.
+ Must be a single number between 0 and 1. Default is 0.95.
+
+\item{statistic}{The Kendall correlation coefficient.}
+\item{p_value}{The p-value of the test.}
+\item{alternative}{A character string describing the alternative hypothesis.}
+
+ Kendall's Tau with Ungrouped Data". Journal of the American Statistical
+ Association, 61(314), 436–439.
+
+ Abrevaya J. (1999). Computation of the Maximum Rank Correlation Estimator.
+ Economic Letters 62, 279-285.
+
+ Christensen D. (2005). Fast algorithms for the calculation of Kendall's Tau.
+ Journal of Computational Statistics 20, 51-62.
+
+ Emara (2024). Khufu: Object-Oriented Programming using C++
+</p>
+<h2>Arguments</h2>
+<table class="ref-arguments"><tr><td><strong>x</strong></td><td><p>a numeric vector.</p></td></tr><tr><td><strong>y</strong></td><td><p>a numeric vector.</p></td></tr><tr><td><strong>alternative</strong></td><td><p>a character string specifying the alternative hypothesis.</p></td></tr><tr><td><strong>conf.level</strong></td><td><p>confidence level for the returned confidence interval.</p></td></tr></table><h2>Examples</h2>
+<div class="sourceCode"><pre><code>x &lt;- c(1, 0, 2)
 y &lt;- c(5, 3, 4)
-kendall_cor_test(x, y)</code></pre>
-Knight, W. R. (1966). "A Computer Method for Calculating
-Kendall's Tau with Ungrouped Data". Journal of the American Statistical
-Association, 61(314), 436–439.
-Abrevaya J. (1999). Computation of the Maximum Rank Correlation Estimator.
-Economic Letters 62, 279-285.
-Christensen D. (2005). Fast algorithms for the calculation of Kendall's Tau.
-Journal of Computational Statistics 20, 51-62.
-Emara (2024). Khufu: Object-Oriented Programming using C++
+kendall_cor_test(x, y)</code></pre></div>
+<div class="error"><pre><code>## Error: could not find function "kendall_cor_test"</code></pre></div>
 </div>
-<footer><p>Last updated: 2025-10-12 11:49:03</p>
+<footer><p>Last updated: 2025-10-12 18:00:28</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

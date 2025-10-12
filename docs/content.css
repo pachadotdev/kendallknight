@@ -360,7 +360,7 @@ mjx-container[jax="SVG"][display="false"] {
   display: inline-block !important;
   vertical-align: baseline !important;
   margin: 0 0.1em;
-  transform: translateY(-0.3em) !important;
+  transform: translateY(-0.2em) !important;
   position: relative !important;
 }
 
@@ -368,7 +368,13 @@ mjx-container[jax="SVG"][display="false"] {
 mjx-container[jax="SVG"][display="false"] svg {
   vertical-align: baseline !important;
   position: relative !important;
-  top: -0.1em !important;
+  top: -0.2em !important;
+}
+
+/* Alternative alignment approach if the above doesn't work well */
+mjx-container[jax="SVG"]:not([display="true"]) {
+  vertical-align: middle !important;
+  line-height: 1 !important;
 }
 
 /* SVG elements should inherit text color for dark mode */
@@ -382,4 +388,44 @@ mjx-container[jax="SVG"][display="false"] svg {
     max-width: 100%;
     /* overflow-x: auto; */
   }
+}
+
+/* Styling for executed R examples */
+.sourceCode {
+  margin-bottom: 0.5em;
+}
+
+.sourceCode pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.8em;
+  margin: 0;
+}
+
+.output {
+  margin-bottom: 1em;
+}
+
+.output pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 4px;
+  padding: 0.8em;
+  margin: 0;
+  color: #666;
+}
+
+[data-theme="dark"] .output pre {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ccc;
+}
+
+.error pre {
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  border-radius: 4px;
+  padding: 0.8em;
+  margin: 0;
+  color: #dc3545;
 }

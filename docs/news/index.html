@@ -22,7 +22,7 @@
         processHtmlClass: 'tex2jax_process'
       }
     };
-  </script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
 <div class="main-container">
 <div id="menu">
   <div>
@@ -39,9 +39,8 @@
 
   <div class="submenu">
     <label>Functions</label>
-    <a href="../reference/kendall_cor_test.html">kendall_cor_test</a>
     <a href="../reference/kendall_cor.html">kendall_cor</a>
-    <a href="../reference/kendallknight-package.html">kendallknight-package</a>
+    <a href="../reference/kendall_cor_test.html">kendall_cor_test</a>
   </div>
 
 
@@ -54,34 +53,41 @@
 <div class="content-wrapper">
 <div class="content-main">
 <h1>Changelog</h1>
-<h1>kendallknight 1.0.0</h1>
+<p># kendallknight 1.0.0</p>
 
 <ul><li>New vignette and link to published article.</li>
-</ul><h1>kendallknight 0.7.0</h1>
+</ul>
+# kendallknight 0.7.0
 
 <ul><li>Replaces the example dataset with one based on real data.</li>
 <li>Adds confidence intervals to correlation tests and allows different confidence levels.</li>
-</ul><h1>kendallknight 0.6.0</h1>
+</ul>
+# kendallknight 0.6.0
 
 <ul><li>Uses "htest" S3 class for the p-value print method. This is a minor change that makes the output more consistent with other R functions.</li>
-</ul><h1>kendallknight 0.5.0</h1>
+</ul>
+# kendallknight 0.5.0
 
 <ul><li>Corrects a severe error with the p-value computation. Thanks to @ouroboro for pointing this out (#3).</li>
-</ul><h1>kendallknight 0.4.0</h1>
+</ul>
+# kendallknight 0.4.0
 
 <ul><li>Provides an implementation of chebyshev_eval, gammafn, lgammacor and stirlerr functions in C++. This solves CRAN warnings about using non-API non-API calls to R.</li>
-</ul><h1>kendallknight 0.3.0</h1>
+</ul>
+# kendallknight 0.3.0
 
 <ul><li>Provides the option to pass a matrix to obtain a correlation matrix.</li>
-</ul><h1>kendallknight 0.2.0</h1>
+</ul>
+# kendallknight 0.2.0
 
 <ul><li>Uses parallelization to speed up the computation of the Kendall's correlation.</li>
 <li>It still needs additional checks with Inf values.</li>
-</ul><h1>kendallknight 0.1.0</h1>
+</ul>
+# kendallknight 0.1.0
 
 <ul><li>The Kendall's correlation function from capybara was moved here to have a dedicated package for it.</li>
 </ul></div>
-<footer><p>Last updated: 2025-10-12 11:49:03</p>
+<footer><p>Last updated: 2025-10-12 18:00:28</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

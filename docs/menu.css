@@ -20,6 +20,21 @@
   margin-bottom: 1.5em;
 }
 
+/* Logo styling */
+#menu img {
+  display: block;
+  margin: 0 auto 1em auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive logo sizing */
+@media (max-width: 768px) {
+  #menu img {
+    height: 80px;
+  }
+}
+
 /* Theme toggle button */
 #menu > div:first-child {
   display: flex;

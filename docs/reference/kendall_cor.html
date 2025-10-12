@@ -26,8 +26,7 @@
 <div class="main-container">
 <div id="menu">
   <div>
-    <h1>kendallknight Documentation</h1>
-  </div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="kendallknight logo"></div>
 
   <div class="search-container">
     <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
@@ -81,18 +80,20 @@
  Emara (2024). Khufu: Object-Oriented Programming using C++
 </p>
 <h2>Arguments</h2>
-<table class="ref-arguments"><tr><td><strong>x</strong></td><td><p>a numeric vector or matrix.</p></td></tr><tr><td><strong>y</strong></td><td><p>an optional numeric vector.</p></td></tr></table><h2>Examples</h2>
+<table class="ref-arguments"><tbody><tr><td><strong>x</strong></td><td>a numeric vector or matrix.</td></tr><tr><td><strong>y</strong></td><td>an optional numeric vector.</td></tr></tbody></table><h2>Examples</h2>
 <div class="sourceCode"><pre><code># input vectors -&gt; scalar output
 x &lt;- c(1, 0, 2)
 y &lt;- c(5, 3, 4)
 kendall_cor(x, y)</code></pre></div>
-<div class="error"><pre><code>## Error: could not find function "kendall_cor"</code></pre></div>
+<div class="output"><pre><code>## [1] 0.3333333</code></pre></div>
 <div class="sourceCode"><pre><code># input matrix -&gt; matrix output
 x &lt;- mtcars[, c("mpg", "cyl")]
 kendall_cor(x)</code></pre></div>
-<div class="error"><pre><code>## Error: could not find function "kendall_cor"</code></pre></div>
+<div class="output"><pre><code>##            [,1]       [,2]
+## [1,]  1.0000000 -0.7953134
+## [2,] -0.7953134  1.0000000</code></pre></div>
 </div>
-<footer><p>Last updated: 2025-10-12 18:00:28</p>
+<footer><p>Last updated: 2025-10-12 19:58:11</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

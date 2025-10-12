@@ -211,17 +211,25 @@ table.ref-arguments {
   border-collapse: collapse;
   width: 100%;
   margin: 1em 0;
+  table-layout: auto; /* Allow auto-sizing based on content */
 }
 
 table.ref-arguments td {
-  padding: 0.5em;
+  padding: 0.75em 1em 0.75em 0;
   vertical-align: top;
   border: none;
+  line-height: 1.4;
 }
 
 table.ref-arguments td:first-child {
-  width: 20%;
-  min-width: 8em;
+  white-space: nowrap; /* Keep parameter names on one line */
+  width: 1%; /* Let it shrink to content size */
+  padding-right: 1.5em;
+  font-weight: bold;
+}
+
+table.ref-arguments td:last-child {
+  width: auto; /* Take up remaining space */
 }
 
 /* Code */

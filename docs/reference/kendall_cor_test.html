@@ -26,8 +26,7 @@
 <div class="main-container">
 <div id="menu">
   <div>
-    <h1>kendallknight Documentation</h1>
-  </div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="kendallknight logo"></div>
 
   <div class="search-container">
     <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
@@ -76,13 +75,21 @@
  Emara (2024). Khufu: Object-Oriented Programming using C++
 </p>
 <h2>Arguments</h2>
-<table class="ref-arguments"><tr><td><strong>x</strong></td><td><p>a numeric vector.</p></td></tr><tr><td><strong>y</strong></td><td><p>a numeric vector.</p></td></tr><tr><td><strong>alternative</strong></td><td><p>a character string specifying the alternative hypothesis.</p></td></tr><tr><td><strong>conf.level</strong></td><td><p>confidence level for the returned confidence interval.</p></td></tr></table><h2>Examples</h2>
+<table class="ref-arguments"><tbody><tr><td><strong>x</strong></td><td>a numeric vector.</td></tr><tr><td><strong>y</strong></td><td>a numeric vector.</td></tr><tr><td><strong>alternative</strong></td><td>a character string specifying the alternative hypothesis.</td></tr><tr><td><strong>conf.level</strong></td><td>confidence level for the returned confidence interval.</td></tr></tbody></table><h2>Examples</h2>
 <div class="sourceCode"><pre><code>x &lt;- c(1, 0, 2)
 y &lt;- c(5, 3, 4)
 kendall_cor_test(x, y)</code></pre></div>
-<div class="error"><pre><code>## Error: could not find function "kendall_cor_test"</code></pre></div>
+<div class="output"><pre><code>##
+## 	Kendall's rank correlation tau
+##
+## data:  x and y
+## tau = 0.33333, p-value = 1
+## alternative hypothesis: true tau is not equal to 0
+## 95 percent confidence interval:
+##  -0.9176818  1.0000000
+## </code></pre></div>
 </div>
-<footer><p>Last updated: 2025-10-12 18:00:28</p>
+<footer><p>Last updated: 2025-10-12 19:58:11</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

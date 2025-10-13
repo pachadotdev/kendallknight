@@ -437,3 +437,18 @@ mjx-container[jax="SVG"]:not([display="true"]) {
   margin: 0;
   color: #dc3545;
 }
+
+/* References section styling */
+#refs.references {
+  margin-bottom: 2em;
+}
+
+#refs.references .csl-entry {
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+}
+
+/* Add extra spacing for the last reference entry */
+#refs.references .csl-entry:last-child {
+  margin-bottom: 1.5em;
+}

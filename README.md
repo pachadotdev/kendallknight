@@ -1,10 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# kendallknight <img src="man/figures/logo.svg" align="right" height="139" alt="" />
+# kendallknight
 
 <!-- badges: start -->
-
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/pachadotdev/kendallknight/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/kendallknight/actions/workflows/R-CMD-check.yaml)

@@ -51,31 +51,14 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1></h1>
+<h1>Kendall Correlation Test </h1>
 <h2>Description</h2>
-<p> Kendall correlation using the exact values when the number of observations
- is less than 50. For larger samples, it uses an approximation as in base R.
-
- The possible values are <code>"two.sided"</code>, <code>"greater"</code>, and <code>"less"</code>.
- Must be a single number between 0 and 1. Default is 0.95.
-
-\item{statistic}{The Kendall correlation coefficient.}
-\item{p_value}{The p-value of the test.}
-\item{alternative}{A character string describing the alternative hypothesis.}
-
- Kendall's Tau with Ungrouped Data". Journal of the American Statistical
- Association, 61(314), 436–439.
-
- Abrevaya J. (1999). Computation of the Maximum Rank Correlation Estimator.
- Economic Letters 62, 279-285.
-
- Christensen D. (2005). Fast algorithms for the calculation of Kendall's Tau.
- Journal of Computational Statistics 20, 51-62.
-
- Emara (2024). Khufu: Object-Oriented Programming using C++
-</p>
+<p>Kendall correlation using the exact values when the number of observations
+ is less than 50. For larger samples, it uses an approximation as in base R.</p>
 <h2>Arguments</h2>
-<table class="ref-arguments"><tbody><tr><td><strong>x</strong></td><td>a numeric vector.</td></tr><tr><td><strong>y</strong></td><td>a numeric vector.</td></tr><tr><td><strong>alternative</strong></td><td>a character string specifying the alternative hypothesis.</td></tr><tr><td><strong>conf.level</strong></td><td>confidence level for the returned confidence interval.</td></tr></tbody></table><h2>Examples</h2>
+<table class="ref-arguments"><tbody><tr><td><strong>x</strong></td><td>a numeric vector.</td></tr><tr><td><strong>y</strong></td><td>a numeric vector.</td></tr><tr><td><strong>alternative</strong></td><td>a character string specifying the alternative hypothesis. The possible values are <code>"two.sided"</code>, <code>"greater"</code>, and <code>"less"</code>.</td></tr><tr><td><strong>conf.level</strong></td><td>confidence level for the returned confidence interval. Must be a single number between 0 and 1. Default is 0.95.</td></tr></tbody></table><h2>Return</h2>
+<p>A list with the following components:</p>
+<table class="ref-arguments"><tbody><tr><td><strong>statistic</strong></td><td>The Kendall correlation coefficient.</td></tr><tr><td><strong>p_value</strong></td><td>The p-value of the test.</td></tr><tr><td><strong>alternative</strong></td><td>A character string describing the alternative hypothesis.</td></tr></tbody></table><h2>Examples</h2>
 <div class="sourceCode"><pre><code>x &lt;- c(1, 0, 2)
 y &lt;- c(5, 3, 4)
 kendall_cor_test(x, y)</code></pre></div>
@@ -87,9 +70,14 @@ kendall_cor_test(x, y)</code></pre></div>
 ## alternative hypothesis: true tau is not equal to 0
 ## 95 percent confidence interval:
 ##  -0.9176818  1.0000000
-## </code></pre></div>
+## </code></pre></div><h2>References</h2>
+<p>Kendall's Tau with Ungrouped Data". Journal of the American Statistical Association, 61(314), 436–439.</p>
+<p>Abrevaya J. (1999). Computation of the Maximum Rank Correlation Estimator. Economic Letters 62, 279-285.</p>
+<p>Christensen D. (2005). Fast algorithms for the calculation of Kendall's Tau. Journal of Computational Statistics 20, 51-62.</p>
+<p>Emara (2024). Khufu: Object-Oriented Programming using C++</p>
+
 </div>
-<footer><p>Last updated: 2025-10-12 19:58:11</p>
+<footer><p>Last updated: 2025-10-12 22:30:06</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

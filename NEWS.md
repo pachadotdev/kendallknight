@@ -1,3 +1,7 @@
+# kendallknight 1.0.1
+
+* Using 'cpp4r' instead of 'cpp11' for a slight speed improvement.
+
 # kendallknight 1.0.0
 
 * New vignette and link to published article.
